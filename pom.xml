@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>pps</groupId>
-	<artifactId>gestorClub-be</artifactId>
+	<artifactId>gestorClub-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>gestorClub-api</name>
 	<description>gestorClub API</description>
