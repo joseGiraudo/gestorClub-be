@@ -5,6 +5,7 @@ import pps.gestorClub_api.models.Member;
 import java.util.List;
 
 public interface MemberService {
+
     Member getById(Long id);
 
     List<Member> getAll();

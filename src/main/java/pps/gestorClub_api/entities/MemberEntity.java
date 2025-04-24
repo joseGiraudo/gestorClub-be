@@ -35,6 +35,7 @@ public class MemberEntity extends BaseEntity {
     @Column(name = "birthdate")
     private Date birthdate;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private MemberType type;
 
