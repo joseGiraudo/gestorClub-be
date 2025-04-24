@@ -26,12 +26,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getById(Long id) {
 
-        Optional<UserEntity> userEntity = userRepository.findById(id);
+        UserEntity userEntity = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró el usuario con id: " + id));
 
-        if(userEntity.isEmpty())
-            throw new EntityNotFoundException("No se encontró el user con id: " + id);
-
-        return modelMapper.map(userEntity.get(), User.class);
+        return modelMapper.map(userEntity, User.class);
     }
 
     @Override
@@ -65,18 +63,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(Long id, User user) {
 
-        Optional<UserEntity> userEntity = userRepository.findById(id);
+        UserEntity userEntity = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró el usuario con id: " + id));
 
-        if(userEntity.isEmpty())
-            throw new EntityNotFoundException("No se encontró el user con id: " + id);
 
-        UserEntity userEntityToSave = userEntity.get();
+        userEntity.setName(user.getName());
+        userEntity.setLastName(user.getLastName());
+        userEntity.setRole(user.getRole());
 
-        userEntityToSave.setName(user.getName());
-        userEntityToSave.setLastName(user.getLastName());
-        userEntityToSave.setRole(user.getRole());
-
-        UserEntity userEntityUpdated = userRepository.save(userEntityToSave);
+        UserEntity userEntityUpdated = userRepository.save(userEntity);
 
         return modelMapper.map(userEntityUpdated, User.class);
     }
@@ -84,15 +79,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
 
-        Optional<UserEntity> userEntity = userRepository.findById(id);
+        UserEntity userEntity = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró el usuario con id: " + id));
 
-        if(userEntity.isEmpty())
-            throw new EntityNotFoundException("No se encontró el user con id: " + id);
+        userEntity.setActive(false);
 
-        UserEntity userEntityToSave = userEntity.get();
-        userEntityToSave.setActive(false);
-
-        userRepository.save(userEntityToSave);
+        userRepository.save(userEntity);
     }
 
     @Override
