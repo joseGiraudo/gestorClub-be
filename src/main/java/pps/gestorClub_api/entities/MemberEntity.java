@@ -23,22 +23,22 @@ public class MemberEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "birthdate")
+    @Column(name = "birthdate", nullable = false)
     private Date birthdate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type")
+    @Column(name = "type", nullable = false)
     private MemberType type;
 
-    @Column(nullable = false, name = "is_active")
+    @Column(name = "is_active", nullable = false)
     private boolean isActive = true;
 }
