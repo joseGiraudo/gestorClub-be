@@ -37,9 +37,6 @@ public class MemberServiceImpl implements MemberService {
     public List<Member> getAll() {
         List<MemberEntity> memberEntities = memberRepository.findAll();
 
-        if(memberEntities.isEmpty())
-            throw new EntityNotFoundException("No se encontraron socios");
-
         return memberEntities.stream()
                 .map(memberEntity -> {
                     Member member = modelMapper.map(memberEntity, Member.class);
