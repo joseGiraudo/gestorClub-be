@@ -4,9 +4,9 @@ import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pps.gestorClub_api.dtos.members.PostMemberDto;
 import pps.gestorClub_api.entities.MemberEntity;
 import pps.gestorClub_api.models.Member;
-import pps.gestorClub_api.models.User;
 import pps.gestorClub_api.repositories.MemberRepository;
 import pps.gestorClub_api.services.MemberService;
 
@@ -45,10 +45,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member create(Member member) {
+    public Member create(PostMemberDto member) {
 
         if(getEmailExists(member.getEmail()))
             throw new IllegalArgumentException("Email already in use");
+
+        // TODO: Faltan validaciones de dni y alguna mas
 
         MemberEntity memberEntity = modelMapper.map(member, MemberEntity.class);
 
@@ -58,11 +60,17 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member update(Long id, Member member) {
+    public Member update(Long id, PostMemberDto member) {
         MemberEntity memberEntity = memberRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró el socio con id: " + id));
 
-        MemberEntity memberEntitySaved = memberRepository.save(modelMapper.map(member, MemberEntity.class));
+        memberEntity.setName(member.getName());
+        memberEntity.setLastName(member.getLastName());
+        memberEntity.setEmail(member.getEmail());
+        memberEntity.setBirthdate(member.getBirthdate());
+        memberEntity.setType(member.getType());
+
+        MemberEntity memberEntitySaved = memberRepository.save(memberEntity);
 
         return modelMapper.map(memberEntitySaved, Member.class);
     }

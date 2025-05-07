@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pps.gestorClub_api.dtos.members.PostMemberDto;
 import pps.gestorClub_api.models.Member;
-import pps.gestorClub_api.services.MemberService;
 import pps.gestorClub_api.services.MemberService;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class MemberController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Member> createMember(@Valid @RequestBody Member member) {
+    public ResponseEntity<Member> createMember(@Valid @RequestBody PostMemberDto member) {
         Member response = memberService.create(member);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -44,9 +44,9 @@ public class MemberController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Member> createMember(
+    public ResponseEntity<Member> updateMember(
             @PathVariable("id") Long id,
-            @Valid @RequestBody Member member) {
+            @Valid @RequestBody PostMemberDto member) {
         Member response = memberService.update(id, member);
 
         return ResponseEntity.ok(response);

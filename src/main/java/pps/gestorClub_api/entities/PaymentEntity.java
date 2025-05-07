@@ -23,11 +23,11 @@ public class PaymentEntity {
     private Long id;
 
     @ManyToOne
-    @Column(name = "member_id", nullable = false)
+    @JoinColumn(name = "member_id", nullable = false)
     private MemberEntity memberId;
 
     @ManyToOne
-    @Column(name = "fee_id", nullable = false)
+    @JoinColumn(name = "fee_id", nullable = false)
     private FeeEntity feeId;
 
     @Column(name = "payment_date", nullable = false)
@@ -45,6 +45,6 @@ public class PaymentEntity {
     private String mercadoPagoId;
 
     @ManyToOne
-    @Column(name = "recorded_by")
+    @JoinColumn(name = "recorded_by")
     private UserEntity recordedBy;
 }

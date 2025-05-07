@@ -29,11 +29,20 @@ public class MemberEntity extends BaseEntity {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
+    @Column(name = "dni", nullable = false, unique = true)
+    private String dni;
+
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "birthdate", nullable = false)
     private Date birthdate;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "address")
+    private String address;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)

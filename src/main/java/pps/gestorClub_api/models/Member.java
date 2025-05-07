@@ -17,22 +17,21 @@ public class Member {
 
     private Long id;
 
-    @NotNull(message = "Member name cannot be null")
     private String name;
 
-    @NotNull(message = "Member last name cannot be null")
-    @JsonProperty("last_name")
     private String lastName;
 
-    @NotNull(message = "Member email cannot be null")
+    private String dni;
+
     private String email;
 
-    @NotNull(message = "Member birthdate cannot be null")
+    private String phone;
+
+    private String address;
+
     private Date birthdate;
 
-    @NotNull(message = "Member type cannot be null")
-    private MemberType role;
+    private MemberType type;
 
-    @JsonProperty("is_active")
     private boolean isActive;
 }

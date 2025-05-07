@@ -1,5 +1,6 @@
 package pps.gestorClub_api.services;
 
+import pps.gestorClub_api.dtos.members.PostMemberDto;
 import pps.gestorClub_api.models.Member;
 
 import java.util.List;
@@ -10,9 +11,9 @@ public interface MemberService {
 
     List<Member> getAll();
 
-    Member create(Member member);
+    Member create(PostMemberDto member);
 
-    Member update(Long id, Member member);
+    Member update(Long id, PostMemberDto member);
 
     void delete(Long id);
 

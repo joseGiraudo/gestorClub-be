@@ -117,13 +117,24 @@
 		</dependency>
 
 
-		<!-- JWT Dependency -->
+
 
 		<dependency>
 			<groupId>com.github.jtidy</groupId>
 			<artifactId>jtidy</artifactId>
 			<version>1.0.5</version>
 		</dependency>
+
+
+		<!-- Spring Security -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+
+		<!-- JWT Dependency -->
 
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>

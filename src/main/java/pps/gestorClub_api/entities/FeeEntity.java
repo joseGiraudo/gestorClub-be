@@ -18,10 +18,10 @@ public class FeeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "month", nullable = false)
+    @Column(name = "month_period", nullable = false)
     private Integer month;
 
-    @Column(name = "year", nullable = false)
+    @Column(name = "year_period", nullable = false)
     private Integer year;
 
     @Column(name = "amount", nullable = false)

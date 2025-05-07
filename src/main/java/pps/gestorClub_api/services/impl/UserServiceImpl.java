@@ -88,6 +88,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getByEmail(String email) {
+
+        UserEntity userEntity = userRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró el usuario con email: " + email));
+
+        return modelMapper.map(userEntity, User.class);
+    }
+
+    @Override
     public Boolean getEmailExists(String email) {
 
         Optional<UserEntity> userWithEmail = userRepository.findByEmail(email);
