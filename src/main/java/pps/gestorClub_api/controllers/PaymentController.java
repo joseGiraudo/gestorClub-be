@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pps.gestorClub_api.dtos.payments.MonthlyDTO;
 import pps.gestorClub_api.models.Payment;
 import pps.gestorClub_api.services.PaymentService;
 
@@ -49,5 +50,13 @@ public class PaymentController {
         Payment response = paymentService.update(id, payment);
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/generate-orders")
+    public ResponseEntity createMonthlyPayments(@Valid @RequestBody MonthlyDTO monthlyDTO) {
+
+        paymentService.generateMonthlyPayments(monthlyDTO.getMonth(), monthlyDTO.getYear());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("Ordenes de pago creadas");
     }
 }

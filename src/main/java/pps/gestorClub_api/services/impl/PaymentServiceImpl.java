@@ -5,11 +5,20 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pps.gestorClub_api.entities.FeeEntity;
+import pps.gestorClub_api.entities.MemberEntity;
 import pps.gestorClub_api.entities.PaymentEntity;
+import pps.gestorClub_api.enums.PaymentStatus;
+import pps.gestorClub_api.models.Fee;
+import pps.gestorClub_api.models.Member;
 import pps.gestorClub_api.models.Payment;
+import pps.gestorClub_api.repositories.FeeRepository;
+import pps.gestorClub_api.repositories.MemberRepository;
 import pps.gestorClub_api.repositories.PaymentRepository;
+import pps.gestorClub_api.services.FeeService;
+import pps.gestorClub_api.services.MemberService;
 import pps.gestorClub_api.services.PaymentService;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +27,12 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Autowired
     private PaymentRepository paymentRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
+
+    @Autowired
+    private FeeRepository feeRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -55,5 +70,37 @@ public class PaymentServiceImpl implements PaymentService {
 
         PaymentEntity updatedEntity = paymentRepository.save(modelMapper.map(payment, PaymentEntity.class));
         return modelMapper.map(updatedEntity, Payment.class);
+    }
+
+    @Override
+    public void generateMonthlyPayments(Integer month, Integer year) {
+        // busco la cuota a pagar
+        FeeEntity fee = feeRepository.findByMonthAndYear(month, year)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró la cuota para el mes: " + month + " del " + year));
+
+        // obtengo todos los miembros
+        List<MemberEntity> members = memberRepository.findAll();
+
+        for (MemberEntity member : members) {
+            PaymentEntity payment = generatePayment(member, fee);
+            paymentRepository.save(payment);
+        }
+    }
+
+
+    // metodo para generar una orden de pago para un miembro a partir de una cuota
+    private PaymentEntity generatePayment(MemberEntity member, FeeEntity fee) {
+        PaymentEntity payment = new PaymentEntity();
+
+        payment.setMemberId(member);
+        payment.setFeeId(fee);
+        payment.setIssuedDate(new Date());
+        payment.setPaymentDate(null);
+        payment.setStatus(PaymentStatus.PENDING);
+        payment.setMethod(null);
+        payment.setMercadoPagoId(null);
+        payment.setRecordedBy(null);
+
+        return payment;
     }
 }

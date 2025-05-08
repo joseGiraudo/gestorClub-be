@@ -14,4 +14,6 @@ public interface PaymentService {
     Payment create(Payment payment);
 
     Payment update(Long id, Payment payment);
+
+    void generateMonthlyPayments(Integer month, Integer Year);
 }

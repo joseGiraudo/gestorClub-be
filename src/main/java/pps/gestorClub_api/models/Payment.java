@@ -23,9 +23,11 @@ public class Payment {
 
     private Long id;
 
-    private MemberEntity memberId;
+    private Member memberId;
 
-    private FeeEntity feeId;
+    private Fee feeId;
+
+    private Date issuedDate;
 
     private Date paymentDate;
 
@@ -35,5 +37,5 @@ public class Payment {
 
     private String mercadoPagoId;
 
-    private UserEntity recordedBy;
+    private User recordedBy;
 }

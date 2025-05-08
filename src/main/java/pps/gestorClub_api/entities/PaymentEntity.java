@@ -30,7 +30,10 @@ public class PaymentEntity {
     @JoinColumn(name = "fee_id", nullable = false)
     private FeeEntity feeId;
 
-    @Column(name = "payment_date", nullable = false)
+    @Column(name = "issued_date", nullable = false)
+    private Date issuedDate;
+
+    @Column(name = "payment_date")
     private Date paymentDate;
 
     @Enumerated(EnumType.STRING)
@@ -38,7 +41,7 @@ public class PaymentEntity {
     private PaymentStatus status;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "method", nullable = false)
+    @Column(name = "method")
     private PaymentMethod method;
 
     @Column(name = "mercado_pago_id")

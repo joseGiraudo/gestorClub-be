@@ -59,4 +59,12 @@ public class FeeServiceImpl implements FeeService {
 
         return modelMapper.map(updatedEntity, Fee.class);
     }
+
+    @Override
+    public Fee getByMonthAndYear(Integer month, Integer year) {
+        FeeEntity feeEntity = feeRepository.findByMonthAndYear(month, year)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró la cuota para el mes: " + month + " del " + year));
+
+        return modelMapper.map(feeEntity, Fee.class);
+    }
 }
