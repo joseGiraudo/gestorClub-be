@@ -9,3 +9,17 @@ INSERT INTO members (name, last_name, dni, email, birthdate, phone, address, typ
 ('Diego', 'López', '37890123', 'diego.lopez@example.com', '1988-03-30', '3879876543', 'Belgrano 789', 'ACTIVE', true);
 
 
+INSERT INTO fees (month_period, year_period, amount) VALUES
+(1, 2025, 5000),
+(2, 2025, 5000),
+(3, 2025, 5000),
+(4, 2025, 5000),
+(5, 2025, 5000),
+(6, 2025, 5000);
+
+INSERT INTO payments (member_id, fee_id, payment_date, status, method, mercado_pago_id, recorded_by) VALUES
+(1, 1, '2025-05-01', 'APPROVED', 'TRANSFERENCIA', NULL, NULL),
+(2, 1, '2025-05-02', 'APPROVED', 'TRANSFERENCIA', NULL, NULL),
+(3, 1, '2025-05-03', 'APPROVED', 'TRANSFERENCIA', NULL, NULL),
+(4, 1, '2025-05-04', 'APPROVED', 'TRANSFERENCIA', NULL, NULL),
+(1, 2, '2025-05-05', 'APPROVED', 'MERCADO_PAGO', NULL, NULL);
