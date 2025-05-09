@@ -1,5 +1,6 @@
 package pps.gestorClub_api.services.impl;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pps.gestorClub_api.entities.UserEntity;
@@ -17,11 +18,11 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public Optional<UserEntity> authenticate(String email, String password) {
-        if (email.equals("admin@correo.com") && password.equals("admin123")) {
+        UserEntity userEntity = userRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró usuario con email: " + email));
 
-            return userRepository.findByEmail(email);
-        } else if (email.equals("user@club.com") && password.equals("user123")) {
-            return userRepository.findByEmail(email);
+        if(userEntity.getPassword().equals(password)) {
+            return Optional.of(userEntity);
         }
         return Optional.empty();
     }
