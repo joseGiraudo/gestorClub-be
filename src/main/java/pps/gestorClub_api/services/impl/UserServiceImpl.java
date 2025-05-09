@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
         UserEntity userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró el usuario con id: " + id));
-
+        userEntity.setPassword(null);
         return modelMapper.map(userEntity, User.class);
     }
 
@@ -42,6 +42,7 @@ public class UserServiceImpl implements UserService {
         return userEntities.stream()
                 .map(userEntity -> {
                     User user = modelMapper.map(userEntity, User.class);
+                    user.setPassword(null);
                     return user;
                 }).collect(Collectors.toList());
     }

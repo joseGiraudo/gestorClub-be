@@ -23,3 +23,8 @@ INSERT INTO payments (member_id, fee_id, issued_date, payment_date, status, meth
 (3, 1, '2025-05-03', '2025-05-03', 'APPROVED', 'TRANSFERENCIA', NULL, NULL),
 (4, 1, '2025-05-04', '2025-05-04', 'APPROVED', 'TRANSFERENCIA', NULL, NULL),
 (1, 2, '2025-05-05', '2025-05-05', 'APPROVED', 'MERCADO_PAGO', NULL, NULL);
+
+
+INSERT INTO users (name, last_name, email, password, role, is_active) VALUES
+('Admin', 'Admin', 'admin@correo.com', 'admin123', 'ADMIN', true),
+('President', 'President', 'president@correo.com', 'president123', 'PRESIDENT', true);
