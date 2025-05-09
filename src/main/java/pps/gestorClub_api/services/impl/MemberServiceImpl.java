@@ -8,6 +8,7 @@ import pps.gestorClub_api.dtos.members.PostMemberDto;
 import pps.gestorClub_api.entities.MemberEntity;
 import pps.gestorClub_api.models.Member;
 import pps.gestorClub_api.repositories.MemberRepository;
+import pps.gestorClub_api.services.EmailService;
 import pps.gestorClub_api.services.MemberService;
 
 import java.util.List;
@@ -19,6 +20,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -55,6 +59,8 @@ public class MemberServiceImpl implements MemberService {
         MemberEntity memberEntity = modelMapper.map(member, MemberEntity.class);
 
         MemberEntity memberEntitySaved = memberRepository.save(memberEntity);
+
+        emailService.sendEmail(member.getEmail());
 
         return modelMapper.map(memberEntitySaved, Member.class);
     }
