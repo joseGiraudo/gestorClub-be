@@ -60,7 +60,9 @@ public class MemberServiceImpl implements MemberService {
 
         MemberEntity memberEntitySaved = memberRepository.save(memberEntity);
 
-        emailService.sendEmail(member.getEmail());
+        String fullName = member.getName() + " " + member.getLastName();
+
+        emailService.sendWelcomeEmail(member.getEmail(), fullName);
 
         return modelMapper.map(memberEntitySaved, Member.class);
     }
