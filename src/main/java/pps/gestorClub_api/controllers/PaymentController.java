@@ -59,4 +59,10 @@ public class PaymentController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body("Ordenes de pago creadas");
     }
+
+    @PostMapping("/pending/{memberId}")
+    public ResponseEntity<List<Payment>> getPending(@PathVariable Long memberId) {
+
+        return ResponseEntity.ok(paymentService.getPendingPayments(memberId));
+    }
 }

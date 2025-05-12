@@ -88,6 +88,19 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
 
+    @Override
+    public List<Payment> getPendingPayments(Long memberId) {
+        MemberEntity memberEntity = memberRepository.findById(memberId)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró el socio con id: " + memberId));
+
+        List<PaymentEntity> paymentEntities = paymentRepository.findByStatusAndMemberId(PaymentStatus.PENDING, memberEntity);
+
+        return paymentEntities.stream()
+                .map(paymentEntity -> {
+                    return modelMapper.map(paymentEntity, Payment.class);
+                }).collect(Collectors.toList());
+    }
+
     // metodo para generar una orden de pago para un miembro a partir de una cuota
     private PaymentEntity generatePayment(MemberEntity member, FeeEntity fee) {
         PaymentEntity payment = new PaymentEntity();

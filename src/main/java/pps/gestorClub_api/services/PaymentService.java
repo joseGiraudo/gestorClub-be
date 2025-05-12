@@ -15,5 +15,7 @@ public interface PaymentService {
 
     Payment update(Long id, Payment payment);
 
+    List<Payment> getPendingPayments(Long memberId);
+
     void generateMonthlyPayments(Integer month, Integer Year);
 }
