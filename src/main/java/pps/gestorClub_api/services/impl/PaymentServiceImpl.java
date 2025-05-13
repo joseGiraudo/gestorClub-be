@@ -8,15 +8,11 @@ import pps.gestorClub_api.entities.FeeEntity;
 import pps.gestorClub_api.entities.MemberEntity;
 import pps.gestorClub_api.entities.PaymentEntity;
 import pps.gestorClub_api.enums.PaymentStatus;
-import pps.gestorClub_api.models.Fee;
-import pps.gestorClub_api.models.Member;
 import pps.gestorClub_api.models.Payment;
 import pps.gestorClub_api.repositories.FeeRepository;
 import pps.gestorClub_api.repositories.MemberRepository;
 import pps.gestorClub_api.repositories.PaymentRepository;
 import pps.gestorClub_api.services.EmailService;
-import pps.gestorClub_api.services.FeeService;
-import pps.gestorClub_api.services.MemberService;
 import pps.gestorClub_api.services.PaymentService;
 
 import java.util.Date;
@@ -122,8 +118,8 @@ public class PaymentServiceImpl implements PaymentService {
     private PaymentEntity generatePayment(MemberEntity member, FeeEntity fee) {
         PaymentEntity payment = new PaymentEntity();
 
-        payment.setMemberId(member);
-        payment.setFeeId(fee);
+        payment.setMember(member);
+        payment.setFee(fee);
         payment.setIssuedDate(new Date());
         payment.setPaymentDate(null);
         payment.setStatus(PaymentStatus.PENDING);

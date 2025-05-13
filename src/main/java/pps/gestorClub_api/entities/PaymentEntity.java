@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pps.gestorClub_api.enums.MemberType;
 import pps.gestorClub_api.enums.PaymentMethod;
 import pps.gestorClub_api.enums.PaymentStatus;
 
@@ -24,11 +23,11 @@ public class PaymentEntity {
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
-    private MemberEntity memberId;
+    private MemberEntity member;
 
     @ManyToOne
     @JoinColumn(name = "fee_id", nullable = false)
-    private FeeEntity feeId;
+    private FeeEntity fee;
 
     @Column(name = "issued_date", nullable = false)
     private Date issuedDate;
