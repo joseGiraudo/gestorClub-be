@@ -5,13 +5,16 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 import pps.gestorClub_api.entities.NewsEntity;
 import pps.gestorClub_api.enums.NewsStatus;
 import pps.gestorClub_api.models.News;
 import pps.gestorClub_api.repositories.NewsRepository;
+import pps.gestorClub_api.services.CloudinaryService;
 import pps.gestorClub_api.services.NewsService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +23,9 @@ public class NewsServiceImpl implements NewsService {
 
     @Autowired
     private NewsRepository newsRepository;
+
+    @Autowired
+    private CloudinaryService cloudinaryService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -41,11 +47,20 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public News create(News news) {
+    public News create(String title, String summary, String content, String date, MultipartFile image) {
 
-        NewsEntity entity = modelMapper.map(news, NewsEntity.class);
+        String imageUrl = cloudinaryService.uploadImage(image);
+
+        NewsEntity entity = new NewsEntity();
+        entity.setTitle(title);
+        entity.setSummary(summary);
+        entity.setContent(content);
+        // entity.setCreatedDate(LocalDateTime.parse(date));
+        entity.setImageUrl(imageUrl);
         entity.setStatus(NewsStatus.CREATED);
         NewsEntity saved = newsRepository.save(entity);
+
+        System.out.println("URL CLOUDINARY: " + imageUrl);
 
         return modelMapper.map(saved, News.class);
     }
@@ -58,8 +73,8 @@ public class NewsServiceImpl implements NewsService {
 
         // Actualizamos los campos editables
         newsEntity.setTitle(news.getTitle());
-        newsEntity.setSubtitle(news.getSubtitle());
-        newsEntity.setBody(news.getBody());
+        newsEntity.setSummary(news.getSummary());
+        newsEntity.setContent(news.getContent());
         // Podés también actualizar el status si corresponde
         // entity.setStatus(news.getStatus());
 

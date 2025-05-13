@@ -64,6 +64,8 @@ public class NewsController {
         // Guardás o procesás como quieras
         System.out.println(image.getOriginalFilename());
 
+        newsService.create(title, summary, content, date, image);
+
         return ResponseEntity.ok("Noticia guardada");
     }
 }

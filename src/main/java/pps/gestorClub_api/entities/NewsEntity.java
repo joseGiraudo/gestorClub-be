@@ -22,11 +22,15 @@ public class NewsEntity extends BaseEntity{
     @Column(name = "title")
     private String title;
 
-    @Column(name = "subtitle")
-    private String subtitle;
+    @Column(name = "summary")
+    private String summary;
 
-    @Column(name = "body")
-    private String body;
+    @Lob
+    @Column(name = "content", columnDefinition = "TEXT")
+    private String content;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")

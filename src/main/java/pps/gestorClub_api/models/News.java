@@ -16,11 +16,14 @@ public class News {
     @NotNull(message = "News title cannot be null")
     private String title;
 
-    @NotNull(message = "News subtitle cannot be null")
-    private String subtitle;
+    @NotNull(message = "News summary cannot be null")
+    private String summary;
 
-    @NotNull(message = "News body cannot be null")
-    private String body;
+    @NotNull(message = "News content cannot be null")
+    private String content;
+
+    @NotNull(message = "News image url cannot be null")
+    private String imageUrl;
 
     @NotNull(message = "News status cannot be null")
     private NewsStatus status;
