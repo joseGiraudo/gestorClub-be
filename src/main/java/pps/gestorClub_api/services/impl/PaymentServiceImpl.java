@@ -14,6 +14,7 @@ import pps.gestorClub_api.models.Payment;
 import pps.gestorClub_api.repositories.FeeRepository;
 import pps.gestorClub_api.repositories.MemberRepository;
 import pps.gestorClub_api.repositories.PaymentRepository;
+import pps.gestorClub_api.services.EmailService;
 import pps.gestorClub_api.services.FeeService;
 import pps.gestorClub_api.services.MemberService;
 import pps.gestorClub_api.services.PaymentService;
@@ -33,6 +34,9 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Autowired
     private FeeRepository feeRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -99,6 +103,19 @@ public class PaymentServiceImpl implements PaymentService {
                 .map(paymentEntity -> {
                     return modelMapper.map(paymentEntity, Payment.class);
                 }).collect(Collectors.toList());
+    }
+
+    public void sendPaymentsEmail() {
+        // obtengo todos los miembros
+        List<MemberEntity> members = memberRepository.findAll();
+
+        for(MemberEntity member : members) {
+            List<Payment> payments = getPendingPayments(member.getId());
+            if(!payments.isEmpty()) {
+                String fullName = member.getName() + " " + member.getLastName();
+                emailService.sendPaymentsEmail(member.getEmail(), fullName, payments);
+            }
+        }
     }
 
     // metodo para generar una orden de pago para un miembro a partir de una cuota

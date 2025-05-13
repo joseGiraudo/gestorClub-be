@@ -9,13 +9,16 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.w3c.tidy.Tidy;
+import pps.gestorClub_api.models.Payment;
 import pps.gestorClub_api.services.EmailService;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 @Service
 public class EmailServiceImpl implements EmailService {
@@ -57,6 +60,50 @@ public class EmailServiceImpl implements EmailService {
         helper.setText(cleanHtml, true);
 
         mailSender.send(message);
+    }
+
+    @Override
+    @SneakyThrows
+    public void sendPaymentsEmail(String sendTo, String memberName, List<Payment> payments) {
+        // Read base html
+        String rawHtml = loadHtmlFile("templates/payments.html");
+
+        BigDecimal total = payments.stream()
+                .map(p -> p.getFeeId().getAmount())
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        // replace name variable
+        String html = rawHtml.replace("{{memberName}}", memberName)
+                .replace("{{tableBody}}", generatePaymentRows(payments))
+                .replace("{{total}}", "$" + total);
+
+        // clean html with tidy
+        String cleanHtml = cleanHtmlTidy(html);
+
+        // send email
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+        helper.setTo(sendTo);
+        helper.setSubject("Estado de Cuentas");
+        helper.setText(cleanHtml, true);
+
+        mailSender.send(message);
+    }
+
+
+    private String generatePaymentRows(List<Payment> payments) {
+        StringBuilder builder = new StringBuilder();
+        for(Payment payment : payments) {
+            builder.append("<tr>")
+                    .append("<td>").append(payment.getId()).append("</td>")
+                    .append("<td>").append(payment.getIssuedDate()).append("</td>")
+                    .append("<td>").append(payment.getFeeId().getMonth()).append("</td>")
+                    .append("<td>").append(payment.getFeeId().getYear()).append("</td>")
+                    .append("<td>").append(payment.getFeeId().getAmount()).append("</td>")
+                    .append("</tr>");
+        }
+        return builder.toString();
     }
 
 

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cuotas adeudadas - Club</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: #333;
+    }
+
+    table.cuotas {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    table.cuotas th,
+    table.cuotas td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+
+    table.cuotas thead {
+      background-color: #eee;
+      color: #333;
+    }
+
+    .total {
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .nota {
+      color: #666;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Resumen de Cuotas Adeudadas</h2>
+  <p>Estimado/a <strong>{{memberName}}</strong>,</p>
+  <p>A continuación se detallan las cuotas que tenés pendientes:</p>
+
+  <table class="cuotas">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Emisión</th>
+      <th>Mes</th>
+      <th>Año</th>
+      <th>Monto</th>
+    </tr>
+    </thead>
+    <tbody>
+      {{tableBody}}
+    </tbody>
+  </table>
+
+  <p class="total">Total adeudado: {{total}}</p>
+  <p>Por favor, regularizá tu situación lo antes posible. Para más información o para abonar tu deuda, contactanos o ingresá al sitio web del club.</p>
+  <a href="https://google.com">Pagina Oficial del Club</a>
+  <p class="nota">Este es un mensaje automático. Por favor, no responder a este correo.</p>
+</div>
+</body>
+</html>

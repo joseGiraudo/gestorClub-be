@@ -65,4 +65,11 @@ public class PaymentController {
 
         return ResponseEntity.ok(paymentService.getPendingPayments(memberId));
     }
+
+    @PostMapping("/pendings")
+    public ResponseEntity<String> sendPendingEmails() {
+
+        paymentService.sendPaymentsEmail();
+        return ResponseEntity.ok("Emails enviados");
+    }
 }
