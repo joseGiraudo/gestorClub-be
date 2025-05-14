@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pps.gestorClub_api.dtos.members.PostMemberDto;
+import pps.gestorClub_api.enums.MemberStatus;
 import pps.gestorClub_api.models.Member;
 import pps.gestorClub_api.services.MemberService;
 
@@ -60,11 +61,19 @@ public class MemberController {
         return ResponseEntity.ok("Socio aprobado con éxito");
     }
 
-    @PutMapping("reject/{id}")
+    @PutMapping("/reject/{id}")
     public ResponseEntity<String> rejectMember(@PathVariable("id") Long id) {
 
         memberService.rejectMember(id);
 
         return ResponseEntity.ok("Socio rechazado con éxito");
+    }
+
+    @GetMapping("/status/{status}")
+    public ResponseEntity<List<Member>> getByStatus(@PathVariable("status") MemberStatus status) {
+
+        List<Member> response = memberService.getByStatus(status);
+
+        return ResponseEntity.ok(response);
     }
 }

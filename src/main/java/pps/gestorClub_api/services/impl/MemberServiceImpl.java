@@ -136,4 +136,15 @@ public class MemberServiceImpl implements MemberService {
         String fullName = memberEntity.getName() + " " + memberEntity.getLastName();
         emailService.sendRejectionEmail(memberEntity.getEmail(), fullName);
     }
+
+    @Override
+    public List<Member> getByStatus(MemberStatus status) {
+        List<MemberEntity> memberEntities = memberRepository.findByStatus(status);
+
+        return memberEntities.stream()
+                .map(memberEntity -> {
+                    Member member = modelMapper.map(memberEntity, Member.class);
+                    return member;
+                }).collect(Collectors.toList());
+    }
 }

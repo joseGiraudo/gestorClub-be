@@ -1,6 +1,7 @@
 package pps.gestorClub_api.services;
 
 import pps.gestorClub_api.dtos.members.PostMemberDto;
+import pps.gestorClub_api.enums.MemberStatus;
 import pps.gestorClub_api.models.Member;
 
 import java.util.List;
@@ -22,4 +23,6 @@ public interface MemberService {
     void approveMember(Long id);
 
     void rejectMember(Long id);
+
+    List<Member> getByStatus(MemberStatus status);
 }
