@@ -64,6 +64,52 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     @SneakyThrows
+    public void sendRejectionEmail(String sendTo, String memberName) {
+        // Read base html
+        String rawHtml = loadHtmlFile("templates/rejection.html");
+
+        // replace name variable
+        String html = rawHtml.replace("{{memberName}}", memberName);
+
+        // clean html with tidy
+        String cleanHtml = cleanHtmlTidy(html);
+
+        // send email
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+        helper.setTo(sendTo);
+        helper.setSubject("¡Ya eres Socio del CLub!");
+        helper.setText(cleanHtml, true);
+
+        mailSender.send(message);
+    }
+
+    @Override
+    @SneakyThrows
+    public void sendPetitionEmail(String sendTo, String memberName) {
+        // Read base html
+        String rawHtml = loadHtmlFile("templates/petition.html");
+
+        // replace name variable
+        String html = rawHtml.replace("{{memberName}}", memberName);
+
+        // clean html with tidy
+        String cleanHtml = cleanHtmlTidy(html);
+
+        // send email
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+        helper.setTo(sendTo);
+        helper.setSubject("¡Ya eres Socio del CLub!");
+        helper.setText(cleanHtml, true);
+
+        mailSender.send(message);
+    }
+
+    @Override
+    @SneakyThrows
     public void sendPaymentsEmail(String sendTo, String memberName, List<Payment> payments) {
         // Read base html
         String rawHtml = loadHtmlFile("templates/payments.html");

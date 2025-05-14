@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import pps.gestorClub_api.enums.MemberStatus;
 import pps.gestorClub_api.enums.MemberType;
 import pps.gestorClub_api.enums.UserRole;
 
@@ -47,6 +48,10 @@ public class MemberEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
     private MemberType type;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private MemberStatus status;
 
     @Column(name = "is_active", nullable = false)
     private boolean isActive = true;

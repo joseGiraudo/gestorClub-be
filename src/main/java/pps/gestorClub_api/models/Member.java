@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pps.gestorClub_api.enums.MemberStatus;
 import pps.gestorClub_api.enums.MemberType;
 import pps.gestorClub_api.enums.UserRole;
 
@@ -32,6 +33,8 @@ public class Member {
     private Date birthdate;
 
     private MemberType type;
+
+    private MemberStatus status;
 
     private boolean isActive;
 }

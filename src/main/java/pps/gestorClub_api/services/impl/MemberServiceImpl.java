@@ -3,9 +3,12 @@ package pps.gestorClub_api.services.impl;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import pps.gestorClub_api.dtos.members.PostMemberDto;
 import pps.gestorClub_api.entities.MemberEntity;
+import pps.gestorClub_api.enums.MemberStatus;
 import pps.gestorClub_api.models.Member;
 import pps.gestorClub_api.repositories.MemberRepository;
 import pps.gestorClub_api.services.EmailService;
@@ -58,11 +61,14 @@ public class MemberServiceImpl implements MemberService {
 
         MemberEntity memberEntity = modelMapper.map(member, MemberEntity.class);
 
+        memberEntity.setStatus(MemberStatus.PENDING);
+        memberEntity.setActive(true);
+
         MemberEntity memberEntitySaved = memberRepository.save(memberEntity);
 
         String fullName = member.getName() + " " + member.getLastName();
 
-        emailService.sendWelcomeEmail(member.getEmail(), fullName);
+        emailService.sendPetitionEmail(member.getEmail(), fullName);
 
         return modelMapper.map(memberEntitySaved, Member.class);
     }
@@ -99,5 +105,35 @@ public class MemberServiceImpl implements MemberService {
         Optional<MemberEntity> memberWithEmail = memberRepository.findByEmail(email);
 
         return memberWithEmail.isPresent();
+    }
+
+    @Override
+    public void approveMember(Long id) {
+        MemberEntity memberEntity = memberRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró el socio con id: " + id));
+
+        if(memberEntity.getStatus().equals(MemberStatus.APPROVED)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El socio ya está aprobado.");
+        }
+        memberEntity.setStatus(MemberStatus.APPROVED);
+        memberRepository.save(memberEntity);
+
+        String fullName = memberEntity.getName() + " " + memberEntity.getLastName();
+        emailService.sendWelcomeEmail(memberEntity.getEmail(), fullName);
+    }
+
+    @Override
+    public void rejectMember(Long id) {
+        MemberEntity memberEntity = memberRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró el socio con id: " + id));
+
+        if(memberEntity.getStatus().equals(MemberStatus.REJECTED)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El socio ya se encuentra rechazado.");
+        }
+        memberEntity.setStatus(MemberStatus.REJECTED);
+        memberRepository.save(memberEntity);
+
+        String fullName = memberEntity.getName() + " " + memberEntity.getLastName();
+        emailService.sendRejectionEmail(memberEntity.getEmail(), fullName);
     }
 }

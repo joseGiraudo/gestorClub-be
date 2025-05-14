@@ -51,4 +51,20 @@ public class MemberController {
 
         return ResponseEntity.ok(response);
     }
+
+    @PutMapping("approve/{id}")
+    public ResponseEntity<String> approveMember(@PathVariable("id") Long id) {
+
+        memberService.approveMember(id);
+
+        return ResponseEntity.ok("Socio aprobado con éxito");
+    }
+
+    @PutMapping("reject/{id}")
+    public ResponseEntity<String> rejectMember(@PathVariable("id") Long id) {
+
+        memberService.rejectMember(id);
+
+        return ResponseEntity.ok("Socio rechazado con éxito");
+    }
 }

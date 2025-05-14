@@ -43,7 +43,4 @@ public class PostMemberDto {
     @NotNull(message = "Member type cannot be null")
     @JsonProperty("type")
     private MemberType type;
-
-    @JsonProperty("is_active")
-    private boolean isActive;
 }

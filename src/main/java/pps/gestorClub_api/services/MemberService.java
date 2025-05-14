@@ -18,4 +18,8 @@ public interface MemberService {
     void delete(Long id);
 
     Boolean getEmailExists(String email);
+
+    void approveMember(Long id);
+
+    void rejectMember(Long id);
 }

@@ -10,5 +10,9 @@ public interface EmailService {
 
     void sendWelcomeEmail(String sendTo, String memberName);
 
+    void sendRejectionEmail(String sendTo, String memberName);
+
+    void sendPetitionEmail(String sendTo, String memberName);
+
     void sendPaymentsEmail(String sendTo, String memberName, List<Payment> payments);
 }
