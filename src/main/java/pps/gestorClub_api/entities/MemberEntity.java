@@ -58,6 +58,6 @@ public class MemberEntity extends BaseEntity {
     @Column(name = "is_active", nullable = false)
     private boolean isActive = true;
 
-    @ManyToMany(mappedBy = "members")
-    private List<TeamEntity> teams = new ArrayList<>();
+//    @ManyToMany(mappedBy = "members")
+//    private List<TeamEntity> teams = new ArrayList<>();
 }
