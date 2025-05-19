@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pps.gestorClub_api.dtos.members.PostMemberDto;
 import pps.gestorClub_api.dtos.teams.CreateTeamDto;
+import pps.gestorClub_api.dtos.teams.TeamMemberDto;
 import pps.gestorClub_api.models.Member;
 import pps.gestorClub_api.models.Team;
 import pps.gestorClub_api.services.TeamService;
@@ -52,8 +53,8 @@ public class TeamController {
     @PostMapping("/{id}/add-member")
     public ResponseEntity<Void> addMember(
             @PathVariable("id") Long id,
-            @RequestBody Long memberId) {
-        teamService.addMember(id, memberId);
+            @RequestBody TeamMemberDto memberDto) {
+        teamService.addMember(id, memberDto.getId());
 
         return ResponseEntity.ok().build();
     }
@@ -61,8 +62,8 @@ public class TeamController {
     @PostMapping("/{id}/remove-member")
     public ResponseEntity<Void> removeMember(
             @PathVariable("id") Long id,
-            @RequestBody Long memberId) {
-        teamService.removeMember(id, memberId);
+            @RequestBody TeamMemberDto memberDto) {
+        teamService.removeMember(id, memberDto.getId());
 
         return ResponseEntity.ok().build();
     }

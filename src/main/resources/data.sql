@@ -25,3 +25,7 @@ INSERT INTO payments (member_id, fee_id, issued_date, payment_date, status, meth
 INSERT INTO users (name, last_name, email, password, role, is_active) VALUES
 ('Admin', 'Admin', 'admin@correo.com', 'admin123', 'ADMIN', true),
 ('President', 'President', 'president@correo.com', 'president123', 'PRESIDENT', true);
+
+
+INSERT INTO teams (name, description, sport)
+VALUES ('Basquet Masculino', 'Equipo de basquet', 'BASKETBALL')
