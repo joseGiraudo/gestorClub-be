@@ -9,7 +9,9 @@ import pps.gestorClub_api.enums.MemberStatus;
 import pps.gestorClub_api.enums.MemberType;
 import pps.gestorClub_api.enums.UserRole;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,4 +39,6 @@ public class Member {
     private MemberStatus status;
 
     private boolean isActive;
+
+    private List<Team> teams = new ArrayList<>();
 }

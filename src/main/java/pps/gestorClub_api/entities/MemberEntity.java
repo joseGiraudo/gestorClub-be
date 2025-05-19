@@ -9,7 +9,9 @@ import pps.gestorClub_api.enums.MemberStatus;
 import pps.gestorClub_api.enums.MemberType;
 import pps.gestorClub_api.enums.UserRole;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -55,4 +57,7 @@ public class MemberEntity extends BaseEntity {
 
     @Column(name = "is_active", nullable = false)
     private boolean isActive = true;
+
+    @ManyToMany(mappedBy = "members")
+    private List<TeamEntity> teams = new ArrayList<>();
 }
