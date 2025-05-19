@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import pps.gestorClub_api.dtos.teams.CreateTeamDto;
 import pps.gestorClub_api.entities.MemberEntity;
 import pps.gestorClub_api.entities.TeamEntity;
+import pps.gestorClub_api.enums.TeamSport;
 import pps.gestorClub_api.models.Member;
 import pps.gestorClub_api.models.Team;
 import pps.gestorClub_api.repositories.MemberRepository;
@@ -75,6 +76,17 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public void delete(Long id) {
 
+    }
+
+    @Override
+    public List<Team> getBySport(TeamSport sport) {
+        List<TeamEntity> teamEntities = teamRepository.findBySport(sport);
+
+        return teamEntities.stream()
+                .map(teamEntity -> {
+                    Team team = modelMapper.map(teamEntity, Team.class);
+                    return team;
+                }).collect(Collectors.toList());
     }
 
     @Override

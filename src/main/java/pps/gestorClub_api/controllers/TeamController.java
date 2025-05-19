@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import pps.gestorClub_api.dtos.members.PostMemberDto;
 import pps.gestorClub_api.dtos.teams.CreateTeamDto;
 import pps.gestorClub_api.dtos.teams.TeamMemberDto;
+import pps.gestorClub_api.enums.TeamSport;
 import pps.gestorClub_api.models.Member;
 import pps.gestorClub_api.models.Team;
 import pps.gestorClub_api.services.TeamService;
@@ -48,6 +49,12 @@ public class TeamController {
         Team response = teamService.update(id, teamDto);
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/sport/{sport}")
+    public ResponseEntity<List<Team>> getMTeamById(@PathVariable TeamSport sport) {
+        List<Team> teams = teamService.getBySport(sport);
+        return ResponseEntity.ok(teams);
     }
 
     @PostMapping("/{id}/add-member")

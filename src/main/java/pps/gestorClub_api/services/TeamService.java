@@ -2,6 +2,7 @@ package pps.gestorClub_api.services;
 
 import pps.gestorClub_api.dtos.teams.CreateTeamDto;
 import pps.gestorClub_api.entities.MemberEntity;
+import pps.gestorClub_api.enums.TeamSport;
 import pps.gestorClub_api.models.Member;
 import pps.gestorClub_api.models.Team;
 
@@ -18,6 +19,8 @@ public interface TeamService {
     Team update(Long id, CreateTeamDto team);
 
     void delete(Long id);
+
+    List<Team> getBySport(TeamSport sport);
 
     void addMember(Long teamId, Long memberId);
 
