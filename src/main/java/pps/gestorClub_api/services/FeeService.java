@@ -14,6 +14,7 @@ public interface FeeService {
     Fee create(Fee fee);
 
     Fee update(Long id, Fee fee);
+
     Fee getByMonthAndYear(Integer month, Integer year);
 
 }
