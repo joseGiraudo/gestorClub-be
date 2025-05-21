@@ -49,6 +49,8 @@ public class PaymentServiceImpl implements PaymentService {
     public List<Payment> getAll() {
         List<PaymentEntity> paymentEntities = paymentRepository.findAll();
 
+        System.out.println("response: " + paymentEntities);
+
         return paymentEntities.stream()
                 .map(paymentEntity -> {
                     return modelMapper.map(paymentEntity, Payment.class);

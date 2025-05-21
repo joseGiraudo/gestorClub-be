@@ -23,9 +23,9 @@ public class Payment {
 
     private Long id;
 
-    private Member memberId;
+    private Member member;
 
-    private Fee feeId;
+    private Fee fee;
 
     private Date issuedDate;
 

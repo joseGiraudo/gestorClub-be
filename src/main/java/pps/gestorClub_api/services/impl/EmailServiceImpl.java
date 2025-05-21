@@ -115,7 +115,7 @@ public class EmailServiceImpl implements EmailService {
         String rawHtml = loadHtmlFile("templates/payments.html");
 
         BigDecimal total = payments.stream()
-                .map(p -> p.getFeeId().getAmount())
+                .map(p -> p.getFee().getAmount())
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         // replace name variable
@@ -144,9 +144,9 @@ public class EmailServiceImpl implements EmailService {
             builder.append("<tr>")
                     .append("<td>").append(payment.getId()).append("</td>")
                     .append("<td>").append(payment.getIssuedDate()).append("</td>")
-                    .append("<td>").append(payment.getFeeId().getMonth()).append("</td>")
-                    .append("<td>").append(payment.getFeeId().getYear()).append("</td>")
-                    .append("<td>").append(payment.getFeeId().getAmount()).append("</td>")
+                    .append("<td>").append(payment.getFee().getMonth()).append("</td>")
+                    .append("<td>").append(payment.getFee().getYear()).append("</td>")
+                    .append("<td>").append(payment.getFee().getAmount()).append("</td>")
                     .append("</tr>");
         }
         return builder.toString();
