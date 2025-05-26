@@ -44,7 +44,7 @@ public class PaymentController {
 //    }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Payment> createPayment(
+    public ResponseEntity<Payment> updatePayment(
             @PathVariable("id") Long id,
             @Valid @RequestBody Payment payment) {
         Payment response = paymentService.update(id, payment);
@@ -60,7 +60,7 @@ public class PaymentController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Ordenes de pago creadas");
     }
 
-    @PostMapping("/pending/{memberId}")
+    @GetMapping("/pending/{memberId}")
     public ResponseEntity<List<Payment>> getPending(@PathVariable Long memberId) {
 
         return ResponseEntity.ok(paymentService.getPendingPayments(memberId));

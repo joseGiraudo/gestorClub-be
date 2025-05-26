@@ -57,7 +57,10 @@ public class MemberServiceImpl implements MemberService {
         if(getEmailExists(member.getEmail()))
             throw new IllegalArgumentException("Email already in use");
 
-        // TODO: Faltan validaciones de dni y alguna mas
+        if(getDniExists(member.getDni()))
+            throw new IllegalArgumentException("Dni already in use");
+
+        // TODO: ver validaciones
 
         MemberEntity memberEntity = modelMapper.map(member, MemberEntity.class);
 
@@ -105,6 +108,14 @@ public class MemberServiceImpl implements MemberService {
         Optional<MemberEntity> memberWithEmail = memberRepository.findByEmail(email);
 
         return memberWithEmail.isPresent();
+    }
+
+    @Override
+    public Boolean getDniExists(String dni) {
+
+        Optional<MemberEntity> memberWithDni = memberRepository.findByDni(dni);
+
+        return memberWithDni.isPresent();
     }
 
     @Override

@@ -15,10 +15,10 @@ INSERT INTO fees (month_period, year_period, amount) VALUES
 (6, 2025, 5000);
 
 INSERT INTO payments (member_id, fee_id, issued_date, payment_date, status, method, mercado_pago_id, recorded_by) VALUES
-(1, 1, '2025-05-01', '2025-05-01', 'PENDING', 'TRANSFERENCIA', NULL, NULL),
-(2, 1, '2025-05-02', '2025-05-02', 'PENDING', 'TRANSFERENCIA', NULL, NULL),
-(3, 1, '2025-05-03', '2025-05-03', 'APPROVED', 'TRANSFERENCIA', NULL, NULL),
-(4, 1, '2025-05-04', '2025-05-04', 'APPROVED', 'TRANSFERENCIA', NULL, NULL),
+(1, 1, '2025-05-01', '2025-05-01', 'PENDING', 'TRANSFER', NULL, NULL),
+(2, 1, '2025-05-02', '2025-05-02', 'PENDING', 'TRANSFER', NULL, NULL),
+(3, 1, '2025-05-03', '2025-05-03', 'APPROVED', 'TRANSFER', NULL, NULL),
+(4, 1, '2025-05-04', '2025-05-04', 'APPROVED', 'TRANSFER', NULL, NULL),
 (1, 2, '2025-05-05', '2025-05-05', 'PENDING', 'MERCADO_PAGO', NULL, NULL);
 
 

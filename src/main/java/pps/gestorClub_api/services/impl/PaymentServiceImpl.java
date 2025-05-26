@@ -95,7 +95,7 @@ public class PaymentServiceImpl implements PaymentService {
         MemberEntity memberEntity = memberRepository.findById(memberId)
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró el socio con id: " + memberId));
 
-        List<PaymentEntity> paymentEntities = paymentRepository.findByStatusAndMemberId(PaymentStatus.PENDING, memberEntity);
+        List<PaymentEntity> paymentEntities = paymentRepository.findByStatusAndMemberId(PaymentStatus.PENDING, memberEntity.getId());
 
         return paymentEntities.stream()
                 .map(paymentEntity -> {

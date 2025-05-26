@@ -20,6 +20,8 @@ public interface MemberService {
 
     Boolean getEmailExists(String email);
 
+    Boolean getDniExists(String dni);
+
     void approveMember(Long id);
 
     void rejectMember(Long id);
