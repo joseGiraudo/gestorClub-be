@@ -76,4 +76,16 @@ public class MemberController {
 
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/validEmail")
+    public ResponseEntity<Boolean> validEmail(@RequestParam("email") String email) {
+        Boolean emailExists = memberService.getEmailExists(email);
+        return ResponseEntity.ok(emailExists);
+    }
+
+    @GetMapping("/validDni")
+    public ResponseEntity<Boolean> validDni(@RequestParam("dni") String dni) {
+        Boolean dniExists = memberService.getDniExists(dni);
+        return ResponseEntity.ok(dniExists);
+    }
 }
