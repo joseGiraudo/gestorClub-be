@@ -3,9 +3,13 @@ package pps.gestorClub_api.services.impl;
 import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import pps.gestorClub_api.dtos.members.MemberDto;
 import pps.gestorClub_api.dtos.members.PostMemberDto;
 import pps.gestorClub_api.entities.MemberEntity;
 import pps.gestorClub_api.enums.MemberStatus;
@@ -157,5 +161,62 @@ public class MemberServiceImpl implements MemberService {
                     Member member = modelMapper.map(memberEntity, Member.class);
                     return member;
                 }).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<MemberDto> getMembers(Pageable pageable, String search, String status, Boolean isActive) {
+        Page<MemberEntity> membersPage;
+
+        // Construir especificación para filtros dinámicos
+        Specification<MemberEntity> spec = Specification.where(null);
+
+        // Filtro por búsqueda general (nombre, apellido, DNI)
+        if (search != null && !search.trim().isEmpty()) {
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.or(
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + search.toLowerCase() + "%"),
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("lastName")), "%" + search.toLowerCase() + "%"),
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("dni")), "%" + search.toLowerCase() + "%")
+                    )
+            );
+        }
+
+        // Filtro por status
+        if (status != null && !status.trim().isEmpty()) {
+            try {
+                MemberStatus memberStatus = MemberStatus.valueOf(status.toUpperCase());
+                spec = spec.and((root, query, criteriaBuilder) ->
+                        criteriaBuilder.equal(root.get("status"), memberStatus)
+                );
+            } catch (IllegalArgumentException e) {
+                // Status inválido, ignorar filtro
+            }
+        }
+
+        // Filtro por activo/inactivo
+        if (isActive != null) {
+            spec = spec.and((root, query, criteriaBuilder) ->
+                    criteriaBuilder.equal(root.get("isActive"), isActive)
+            );
+        }
+
+        membersPage = memberRepository.findAll(spec, pageable);
+        return membersPage.map(this::convertToDto);
+    }
+
+    private MemberDto convertToDto(MemberEntity member) {
+        return MemberDto.builder()
+                .id(member.getId())
+                .name(member.getName())
+                .lastName(member.getLastName())
+                .dni(member.getDni())
+                .email(member.getEmail())
+                .birthdate(member.getBirthdate())
+                .phone(member.getPhone())
+                .address(member.getAddress())
+                .type(member.getType())
+                .status(member.getStatus())
+                .isActive(member.getIsActive())
+                .build();
     }
 }

@@ -1,5 +1,8 @@
 package pps.gestorClub_api.services;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import pps.gestorClub_api.dtos.members.MemberDto;
 import pps.gestorClub_api.dtos.members.PostMemberDto;
 import pps.gestorClub_api.enums.MemberStatus;
 import pps.gestorClub_api.models.Member;
@@ -27,4 +30,6 @@ public interface MemberService {
     void rejectMember(Long id);
 
     List<Member> getByStatus(MemberStatus status);
+
+    Page<MemberDto> getMembers(Pageable pageable, String search, String status, Boolean isActive);
 }
