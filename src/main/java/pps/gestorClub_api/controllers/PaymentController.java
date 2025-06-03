@@ -2,10 +2,15 @@ package pps.gestorClub_api.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pps.gestorClub_api.dtos.payments.MonthlyDTO;
+import pps.gestorClub_api.dtos.payments.PaymentDto;
 import pps.gestorClub_api.models.Payment;
 import pps.gestorClub_api.services.PaymentService;
 
@@ -21,6 +26,33 @@ public class PaymentController {
     @GetMapping("")
     public ResponseEntity<List<Payment>> getAllPayments() {
         List<Payment> payments = paymentService.getAll();
+        return ResponseEntity.ok(payments);
+    }
+
+
+    @GetMapping("/filters")
+    public ResponseEntity<Page<PaymentDto>> getPayments(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "desc") String sortDir,
+            @RequestParam(required = false) String memberSearch,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String method,
+            @RequestParam(required = false) Integer month,
+            @RequestParam(required = false) Integer year,
+            @RequestParam(required = false) String dateFrom,
+            @RequestParam(required = false) String dateTo) {
+
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                sortDir.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending()
+        );
+
+        Page<PaymentDto> payments = paymentService.getPayments(
+                pageable, memberSearch, status, method, month, year, dateFrom, dateTo
+        );
         return ResponseEntity.ok(payments);
     }
 
