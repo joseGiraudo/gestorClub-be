@@ -55,9 +55,6 @@ public class MemberEntity extends BaseEntity {
     @Column(name = "status", nullable = false)
     private MemberStatus status;
 
-    @Column(name = "is_active", nullable = false)
-    private boolean isActive = true;
-
 //    @ManyToMany(mappedBy = "members")
 //    private List<TeamEntity> teams = new ArrayList<>();
 }

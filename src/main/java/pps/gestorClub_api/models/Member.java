@@ -38,7 +38,5 @@ public class Member {
 
     private MemberStatus status;
 
-    private boolean isActive;
-
     // private List<Team> teams = new ArrayList<>();
 }

@@ -69,7 +69,6 @@ public class MemberServiceImpl implements MemberService {
         MemberEntity memberEntity = modelMapper.map(member, MemberEntity.class);
 
         memberEntity.setStatus(MemberStatus.PENDING);
-        memberEntity.setActive(true);
 
         MemberEntity memberEntitySaved = memberRepository.save(memberEntity);
 
@@ -102,7 +101,7 @@ public class MemberServiceImpl implements MemberService {
         MemberEntity memberEntity = memberRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró el socio con id: " + id));
 
-        memberEntity.setIsActive(false);
+        memberEntity.setStatus(MemberStatus.INACTIVE);
         memberRepository.save(memberEntity);
     }
 
@@ -127,10 +126,10 @@ public class MemberServiceImpl implements MemberService {
         MemberEntity memberEntity = memberRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró el socio con id: " + id));
 
-        if(memberEntity.getStatus().equals(MemberStatus.APPROVED)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El socio ya está aprobado.");
+        if(memberEntity.getStatus().equals(MemberStatus.ACTIVE)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El socio ya está activo.");
         }
-        memberEntity.setStatus(MemberStatus.APPROVED);
+        memberEntity.setStatus(MemberStatus.ACTIVE);
         memberRepository.save(memberEntity);
 
         String fullName = memberEntity.getName() + " " + memberEntity.getLastName();
@@ -216,7 +215,6 @@ public class MemberServiceImpl implements MemberService {
                 .address(member.getAddress())
                 .type(member.getType())
                 .status(member.getStatus())
-                .isActive(member.getIsActive())
                 .build();
     }
 }

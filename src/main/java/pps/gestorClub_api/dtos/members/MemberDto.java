@@ -25,7 +25,6 @@ public class MemberDto {
     private String address;
     private MemberType type;
     private MemberStatus status;
-    private Boolean isActive;
 
     // Campos de BaseEntity
     private Date createdAt;

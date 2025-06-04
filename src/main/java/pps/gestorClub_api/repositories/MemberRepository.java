@@ -15,5 +15,4 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long>, Jpa
     Optional<MemberEntity> findByEmail(String email);
     Optional<MemberEntity> findByDni(String dni);
     List<MemberEntity> findByStatus(MemberStatus status);
-    List<MemberEntity> findByIsActive(boolean isActive);
 }

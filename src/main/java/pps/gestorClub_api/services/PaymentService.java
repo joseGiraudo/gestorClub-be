@@ -25,5 +25,6 @@ public interface PaymentService {
     List<Payment> getPendingPayments(Long memberId);
 
     void generateMonthlyPayments(Integer month, Integer Year);
-    void sendPaymentsEmail();
+
+    void sendPendingPaymentsEmail();
 }

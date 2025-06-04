@@ -101,7 +101,7 @@ public class PaymentController {
     @PostMapping("/pendings")
     public ResponseEntity<String> sendPendingEmails() {
 
-        paymentService.sendPaymentsEmail();
+        paymentService.sendPendingPaymentsEmail();
         return ResponseEntity.ok("Emails enviados");
     }
 }

@@ -14,6 +14,7 @@ import pps.gestorClub_api.dtos.payments.PaymentDto;
 import pps.gestorClub_api.entities.FeeEntity;
 import pps.gestorClub_api.entities.MemberEntity;
 import pps.gestorClub_api.entities.PaymentEntity;
+import pps.gestorClub_api.enums.MemberStatus;
 import pps.gestorClub_api.enums.PaymentMethod;
 import pps.gestorClub_api.enums.PaymentStatus;
 import pps.gestorClub_api.models.Payment;
@@ -186,8 +187,8 @@ public class PaymentServiceImpl implements PaymentService {
         FeeEntity fee = feeRepository.findByMonthAndYear(month, year)
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró la cuota para el mes: " + month + " del " + year));
 
-        // obtengo todos los miembros
-        List<MemberEntity> members = memberRepository.findAll();
+        // obtengo todos los miembros que esten activos
+        List<MemberEntity> members = memberRepository.findByStatus(MemberStatus.ACTIVE);
 
         for (MemberEntity member : members) {
             PaymentEntity payment = generatePayment(member, fee);
@@ -209,7 +210,7 @@ public class PaymentServiceImpl implements PaymentService {
                 }).collect(Collectors.toList());
     }
 
-    public void sendPaymentsEmail() {
+    public void sendPendingPaymentsEmail() {
         // obtengo todos los miembros
         List<MemberEntity> members = memberRepository.findAll();
 

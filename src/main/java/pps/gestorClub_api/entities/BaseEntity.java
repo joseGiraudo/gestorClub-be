@@ -29,6 +29,4 @@ public class BaseEntity {
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
 
-    @Column(name = "is_active")
-    private Boolean isActive = true;
 }
