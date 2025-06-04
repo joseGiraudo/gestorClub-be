@@ -89,7 +89,7 @@ public class NewsServiceImpl implements NewsService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontró la noticia con id: " + id));
 
         newsEntity.setStatus(NewsStatus.ELIMINATED);
-        newsEntity.setIsActive(false);
+        newsEntity.setActive(false);
         newsRepository.save(newsEntity);
     }
 }

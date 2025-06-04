@@ -36,4 +36,6 @@ public class NewsEntity extends BaseEntity{
     @Column(name = "status")
     private NewsStatus status;
 
+    @Column(name = "is_active")
+    private boolean isActive;
 }
