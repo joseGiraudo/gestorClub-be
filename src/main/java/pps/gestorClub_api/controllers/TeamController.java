@@ -52,7 +52,7 @@ public class TeamController {
     }
 
     @GetMapping("/sport/{sport}")
-    public ResponseEntity<List<Team>> getMTeamById(@PathVariable TeamSport sport) {
+    public ResponseEntity<List<Team>> getTeamById(@PathVariable TeamSport sport) {
         List<Team> teams = teamService.getBySport(sport);
         return ResponseEntity.ok(teams);
     }
