@@ -14,7 +14,9 @@ import pps.gestorClub_api.repositories.NewsRepository;
 import pps.gestorClub_api.services.CloudinaryService;
 import pps.gestorClub_api.services.NewsService;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,7 +57,8 @@ public class NewsServiceImpl implements NewsService {
         entity.setTitle(title);
         entity.setSummary(summary);
         entity.setContent(content);
-        // entity.setCreatedDate(LocalDateTime.parse(date));
+        LocalDate localFromDate = LocalDate.parse(date);
+        entity.setDate(java.sql.Date.valueOf(localFromDate));
         entity.setImageUrl(imageUrl);
         entity.setStatus(NewsStatus.CREATED);
         NewsEntity saved = newsRepository.save(entity);

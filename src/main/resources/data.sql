@@ -34,7 +34,7 @@ INSERT INTO team_members(team_id, member_id) VALUES
 (1, 1),
 (1, 2);
 
-INSERT INTO news(title, summary, content, image_url, status, is_active) VALUES
+INSERT INTO news(title, summary, content, image_url, news_date, status, is_active) VALUES
 ('El basquet sigue con la racha de victorias', 'El equipo de basquet logró otra victoria para continuar puntero en la tabla',
  'Durante la jornada del sábado, el equipo de básquet pudo obtener otra victoria por 60 a 42, continuando así como punteros del torneo. Recordemos que el equipo continúa invicto, y vienen encaminados al título.',
- 'https://res.cloudinary.com/dkcpxysrt/image/upload/v1749160177/ayuaae4dnqzeawbnttly.jpg', 'PUBLISHED', true);
+ 'https://res.cloudinary.com/dkcpxysrt/image/upload/v1749160177/ayuaae4dnqzeawbnttly.jpg', '2025-05-06', 'PUBLISHED', true);

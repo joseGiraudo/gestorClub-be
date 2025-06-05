@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import pps.gestorClub_api.enums.NewsStatus;
 
+import java.util.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -24,6 +26,9 @@ public class News {
 
     @NotNull(message = "News image url cannot be null")
     private String imageUrl;
+
+    @NotNull(message = "News image url cannot be null")
+    private Date date;
 
     @NotNull(message = "News status cannot be null")
     private NewsStatus status;
