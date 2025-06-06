@@ -198,9 +198,9 @@ public class PaymentServiceImpl implements PaymentService {
 
 
     @Override
-    public List<Payment> getPendingPayments(Long memberId) {
-        MemberEntity memberEntity = memberRepository.findById(memberId)
-                .orElseThrow(() -> new EntityNotFoundException("No se encontró el socio con id: " + memberId));
+    public List<Payment> getPendingPayments(String dni) {
+        MemberEntity memberEntity = memberRepository.findByDni(dni)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró el socio con dni: " + dni));
 
         List<PaymentEntity> paymentEntities = paymentRepository.findByMemberIdAndStatus(memberEntity.getId(), PaymentStatus.PENDING);
 
@@ -215,7 +215,7 @@ public class PaymentServiceImpl implements PaymentService {
         List<MemberEntity> members = memberRepository.findAll();
 
         for(MemberEntity member : members) {
-            List<Payment> payments = getPendingPayments(member.getId());
+            List<Payment> payments = getPendingPayments(member.getDni());
             if(!payments.isEmpty()) {
                 String fullName = member.getName() + " " + member.getLastName();
                 emailService.sendPaymentsEmail(member.getEmail(), fullName, payments);

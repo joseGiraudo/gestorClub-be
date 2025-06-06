@@ -22,7 +22,7 @@ public interface PaymentService {
 
     Payment update(Long id, Payment payment);
 
-    List<Payment> getPendingPayments(Long memberId);
+    List<Payment> getPendingPayments(String dni);
 
     void generateMonthlyPayments(Integer month, Integer Year);
 
