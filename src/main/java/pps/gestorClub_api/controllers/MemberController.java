@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pps.gestorClub_api.dtos.members.MemberDto;
 import pps.gestorClub_api.dtos.members.PostMemberDto;
+import pps.gestorClub_api.dtos.members.PutMemberDto;
 import pps.gestorClub_api.enums.MemberStatus;
 import pps.gestorClub_api.models.Member;
 import pps.gestorClub_api.services.MemberService;
@@ -52,7 +53,7 @@ public class MemberController {
     @PutMapping("/{id}")
     public ResponseEntity<Member> updateMember(
             @PathVariable("id") Long id,
-            @Valid @RequestBody PostMemberDto member) {
+            @Valid @RequestBody PutMemberDto member) {
         Member response = memberService.update(id, member);
 
         return ResponseEntity.ok(response);

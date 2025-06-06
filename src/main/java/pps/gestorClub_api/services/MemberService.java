@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import pps.gestorClub_api.dtos.members.MemberDto;
 import pps.gestorClub_api.dtos.members.PostMemberDto;
+import pps.gestorClub_api.dtos.members.PutMemberDto;
 import pps.gestorClub_api.enums.MemberStatus;
 import pps.gestorClub_api.models.Member;
 
@@ -17,7 +18,7 @@ public interface MemberService {
 
     Member create(PostMemberDto member);
 
-    Member update(Long id, PostMemberDto member);
+    Member update(Long id, PutMemberDto member);
 
     void delete(Long id);
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import pps.gestorClub_api.dtos.members.MemberDto;
 import pps.gestorClub_api.dtos.members.PostMemberDto;
+import pps.gestorClub_api.dtos.members.PutMemberDto;
 import pps.gestorClub_api.entities.MemberEntity;
 import pps.gestorClub_api.enums.MemberStatus;
 import pps.gestorClub_api.models.Member;
@@ -80,13 +81,15 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member update(Long id, PostMemberDto member) {
+    public Member update(Long id, PutMemberDto member) {
         MemberEntity memberEntity = memberRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró el socio con id: " + id));
 
         memberEntity.setName(member.getName());
         memberEntity.setLastName(member.getLastName());
         memberEntity.setEmail(member.getEmail());
+        memberEntity.setPhone(member.getPhone());
+        memberEntity.setAddress(member.getAddress());
         memberEntity.setBirthdate(member.getBirthdate());
         memberEntity.setType(member.getType());
 
