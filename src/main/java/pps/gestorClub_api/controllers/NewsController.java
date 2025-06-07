@@ -20,8 +20,14 @@ public class NewsController {
 
 
     @GetMapping("")
-    public ResponseEntity<List<News>> getAllNews() {
-        List<News> news = newsService.getAll();
+    public ResponseEntity<List<News>> getAllActiveNews() {
+        List<News> news = newsService.getAllActive();
+        return ResponseEntity.ok(news);
+    }
+
+    @GetMapping("/last-news")
+    public ResponseEntity<List<News>> getLastNews() {
+        List<News> news = newsService.getLast3News();
         return ResponseEntity.ok(news);
     }
 

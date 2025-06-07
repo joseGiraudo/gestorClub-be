@@ -10,10 +10,12 @@ public interface NewsService {
     News getById(Long id);
 
     List<News> getAll();
+    List<News> getAllActive();
 
     News create(String title, String summary, String content, String date, MultipartFile image);
 
     News update(Long id, News news);
 
     void delete(Long id);
+    List<News> getLast3News();
 }

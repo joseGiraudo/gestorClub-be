@@ -49,6 +49,14 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    public List<News> getAllActive() {
+
+        return newsRepository.findAllByIsActiveTrue().stream()
+                .map(news -> modelMapper.map(news, News.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public News create(String title, String summary, String content, String date, MultipartFile image) {
 
         String imageUrl = cloudinaryService.uploadImage(image);
@@ -94,5 +102,12 @@ public class NewsServiceImpl implements NewsService {
         newsEntity.setStatus(NewsStatus.ELIMINATED);
         newsEntity.setActive(false);
         newsRepository.save(newsEntity);
+    }
+
+    @Override
+    public List<News> getLast3News() {
+        return newsRepository.findTop3ByIsActiveTrueOrderByDateDesc().stream()
+                .map(news -> modelMapper.map(news, News.class))
+                .collect(Collectors.toList());
     }
 }
