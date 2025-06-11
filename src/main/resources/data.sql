@@ -35,11 +35,18 @@ INSERT INTO fees (month_period, year_period, amount) VALUES
 (6, 2025, 5000);
 
 INSERT INTO payments (member_id, fee_id, issued_date, payment_date, status, method, mercado_pago_id, recorded_by) VALUES
-(1, 1, '2025-05-01', '2025-05-01', 'PENDING', 'TRANSFER', NULL, NULL),
+(1, 1, '2025-05-01', '2025-05-01', 'APPROVED', 'TRANSFER', NULL, NULL),
 (2, 1, '2025-05-02', '2025-05-02', 'PENDING', 'TRANSFER', NULL, NULL),
-(3, 1, '2025-05-03', '2025-05-03', 'APPROVED', 'TRANSFER', NULL, NULL),
+(3, 1, '2025-05-03', '2025-05-03', 'PENDING', NULL, NULL, NULL),
 (4, 1, '2025-05-04', '2025-05-04', 'APPROVED', 'TRANSFER', NULL, NULL),
-(1, 2, '2025-05-05', '2025-05-05', 'PENDING', 'MERCADO_PAGO', NULL, NULL);
+(5, 1, '2025-05-04', NULL, 'PENDING', NULL, NULL, NULL),
+(6, 1, '2025-05-04', NULL, 'PENDING', NULL, NULL, NULL),
+(7, 1, '2025-05-04', NULL, 'PENDING', NULL, NULL, NULL),
+(8, 1, '2025-05-04', '2025-05-04', 'APPROVED', 'TRANSFER', NULL, NULL),
+(9, 1, '2025-05-04', '2025-05-04', 'APPROVED', 'TRANSFER', NULL, NULL),
+(1, 2, '2025-05-04', '2025-05-04', 'APPROVED', 'TRANSFER', NULL, NULL),
+(2, 2, '2025-05-04', '2025-05-04', 'APPROVED', 'TRANSFER', NULL, NULL),
+(3, 2, '2025-05-05', NULL, 'PENDING', NULL, NULL, NULL);
 
 
 INSERT INTO users (name, last_name, email, password, role, is_active) VALUES
@@ -52,6 +59,12 @@ VALUES ('Basquet Masculino', 'Equipo de basquet', 'BASKETBALL');
 
 INSERT INTO teams (name, description, sport)
 VALUES ('Futbol femenino', 'Entrenamientos: martes y jueves 18:00hs', 'FOOTBALL');
+
+INSERT INTO teams (name, description, sport)
+VALUES ('Futbol Masculino', 'Equipo de futbol 7. entrenamientos miercoles 21:00hs y partidos sabados', 'FOOTBALL');
+
+INSERT INTO teams (name, description, sport)
+VALUES ('Futbol femenino B', 'Entrenamientos: martes y jueves 20:00hs', 'FOOTBALL');
 
 INSERT INTO team_members(team_id, member_id) VALUES
 (1, 1),

@@ -24,6 +24,7 @@ import pps.gestorClub_api.repositories.PaymentRepository;
 import pps.gestorClub_api.services.EmailService;
 import pps.gestorClub_api.services.PaymentService;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -221,6 +222,23 @@ public class PaymentServiceImpl implements PaymentService {
                 emailService.sendPaymentsEmail(member.getEmail(), fullName, payments);
             }
         }
+    }
+
+    @Override
+    public void markAsPaidMercadoPago(Long paymentId, Long mercadoPagoPaymentId) {
+        Payment payment = getById(paymentId);
+
+        // Evitar sobrescrituras si ya está pagado
+        if (payment.getStatus() == PaymentStatus.APPROVED) {
+            return;
+        }
+
+        payment.setStatus(PaymentStatus.APPROVED);
+        payment.setMethod(PaymentMethod.MERCADO_PAGO);
+        payment.setMercadoPagoId(String.valueOf(mercadoPagoPaymentId));
+        payment.setPaymentDate(Date.from(Instant.now()));
+
+        paymentRepository.save(modelMapper.map(payment, PaymentEntity.class));
     }
 
     // metodo para generar una orden de pago para un miembro a partir de una cuota

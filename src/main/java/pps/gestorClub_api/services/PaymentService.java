@@ -27,4 +27,6 @@ public interface PaymentService {
     void generateMonthlyPayments(Integer month, Integer Year);
 
     void sendPendingPaymentsEmail();
+
+    void markAsPaidMercadoPago(Long paymentId, Long mercadoPagoPaymentId);
 }

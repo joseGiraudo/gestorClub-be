@@ -2,6 +2,7 @@ package pps.gestorClub_api.config;
 
 
 import com.mercadopago.client.merchantorder.MerchantOrderClient;
+import com.mercadopago.client.payment.PaymentClient;
 import com.mercadopago.client.payment.PaymentRefundClient;
 import com.mercadopago.client.preference.PreferenceClient;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,11 @@ public class MercadoPagoConfig {
     @Bean
     public PreferenceClient preferenceClient() {
         return new PreferenceClient();
+    }
+
+    @Bean
+    public PaymentClient paymentClient() {
+        return new PaymentClient();
     }
 
     @Bean
