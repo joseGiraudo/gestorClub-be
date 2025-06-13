@@ -44,9 +44,15 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMember(@PathVariable("id") Long memberId) {
-        memberService.delete(memberId);
+    @PutMapping("/deactivate/{id}")
+    public ResponseEntity<Void> deactivateMember(@PathVariable("id") Long memberId) {
+        memberService.deactivate(memberId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/activate/{id}")
+    public ResponseEntity<Void> activateMember(@PathVariable("id") Long memberId) {
+        memberService.activate(memberId);
         return ResponseEntity.noContent().build();
     }
 

@@ -99,12 +99,22 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void deactivate(Long id) {
 
         MemberEntity memberEntity = memberRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró el socio con id: " + id));
 
         memberEntity.setStatus(MemberStatus.INACTIVE);
+        memberRepository.save(memberEntity);
+    }
+
+    @Override
+    public void activate(Long id) {
+
+        MemberEntity memberEntity = memberRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró el socio con id: " + id));
+
+        memberEntity.setStatus(MemberStatus.ACTIVE);
         memberRepository.save(memberEntity);
     }
 

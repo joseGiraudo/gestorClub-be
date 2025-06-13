@@ -20,7 +20,9 @@ public interface MemberService {
 
     Member update(Long id, PutMemberDto member);
 
-    void delete(Long id);
+    void deactivate(Long id);
+
+    void activate(Long id);
 
     Boolean getEmailExists(String email);
 

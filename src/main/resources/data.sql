@@ -90,40 +90,24 @@ INSERT INTO team_members(team_id, member_id) VALUES
 
 
 INSERT INTO news(title, summary, content, image_url, news_date, status, is_active) VALUES
-('El basquet sigue con la racha de victorias', 'El equipo de basquet logró otra victoria para continuar puntero en la tabla',
- 'Durante la jornada del sábado, el equipo de básquet pudo obtener otra victoria por 60 a 42, continuando así como punteros del torneo. Recordemos que el equipo continúa invicto, y vienen encaminados al título.',
- 'https://res.cloudinary.com/dkcpxysrt/image/upload/v1749160177/ayuaae4dnqzeawbnttly.jpg', '2025-05-06', 'PUBLISHED', true);
-
-
-INSERT INTO news(title, summary, content, image_url, news_date, status, is_active) VALUES
-('El basquet sigue con la racha de victorias', 'El equipo de basquet logró otra victoria para continuar puntero en la tabla',
- 'Durante la jornada del sábado, el equipo de básquet pudo obtener otra victoria por 60 a 42, continuando así como punteros del torneo. Recordemos que el equipo continúa invicto, y vienen encaminados al título.',
- 'https://res.cloudinary.com/dkcpxysrt/image/upload/v1749160177/ayuaae4dnqzeawbnttly.jpg', '2025-05-06', 'PUBLISHED', true);
-
+('Victoria ajustada en casa', 'El equipo ganó por pocos puntos en un partido clave',
+ 'En un encuentro muy parejo, el equipo local se impuso 78 a 75, consolidando su racha de victorias en casa y manteniéndose entre los primeros puestos.',
+ 'https://media.istockphoto.com/id/2162305941/photo/portrait-of-professional-womens-basketball-team.jpg?s=1024x1024&w=is&k=20&c=UwYYh9wTPQE3dTaLqJAf98czLLgszFVCAIkr-JCQhVY=', '2025-06-10', 'PUBLISHED', true);
 
 INSERT INTO news(title, summary, content, image_url, news_date, status, is_active) VALUES
-('El basquet sigue con la racha de victorias', 'El equipo de basquet logró otra victoria para continuar puntero en la tabla',
- 'Durante la jornada del sábado, el equipo de básquet pudo obtener otra victoria por 60 a 42, continuando así como punteros del torneo. Recordemos que el equipo continúa invicto, y vienen encaminados al título.',
- 'https://res.cloudinary.com/dkcpxysrt/image/upload/v1749160177/ayuaae4dnqzeawbnttly.jpg', '2025-05-06', 'PUBLISHED', true);
-
-
-INSERT INTO news(title, summary, content, image_url, news_date, status, is_active) VALUES
-('El basquet sigue con la racha de victorias', 'El equipo de basquet logró otra victoria para continuar puntero en la tabla',
- 'Durante la jornada del sábado, el equipo de básquet pudo obtener otra victoria por 60 a 42, continuando así como punteros del torneo. Recordemos que el equipo continúa invicto, y vienen encaminados al título.',
- 'https://res.cloudinary.com/dkcpxysrt/image/upload/v1749160177/ayuaae4dnqzeawbnttly.jpg', '2025-05-06', 'PUBLISHED', true);
-
+('Récord defensivo en la última fecha', 'El conjunto logró el menor puntaje recibido de la temporada',
+ 'Con una defensa sólida, el equipo solo permitió 55 puntos al rival, estableciendo así un nuevo récord defensivo en la campaña.',
+ 'https://cdn.pixabay.com/photo/2021/09/27/13/25/football-6660800_1280.jpg', '2025-06-08', 'PUBLISHED', true);
 
 INSERT INTO news(title, summary, content, image_url, news_date, status, is_active) VALUES
-('El basquet sigue con la racha de victorias', 'El equipo de basquet logró otra victoria para continuar puntero en la tabla',
- 'Durante la jornada del sábado, el equipo de básquet pudo obtener otra victoria por 60 a 42, continuando así como punteros del torneo. Recordemos que el equipo continúa invicto, y vienen encaminados al título.',
- 'https://res.cloudinary.com/dkcpxysrt/image/upload/v1749160177/ayuaae4dnqzeawbnttly.jpg', '2025-05-06', 'PUBLISHED', true);
-
+('Jugadora destacada del mes', 'La capitana fue elegida MVP del mes en la liga',
+ 'Gracias a su promedio de 20 puntos y 8 rebotes, la capitana del equipo fue nombrada mejor jugadora del mes por la prensa especializada.',
+ 'https://media.istockphoto.com/id/2148828024/photo/woman-taking-a-break-from-playing-at-the-basketball-court-and-texting-on-mobile.jpg?s=1024x1024&w=is&k=20&c=dV2IzYE8MVeTZtOTxMqXQGv4HLBP4tk6mU7vF88vtKk=', '2025-06-05', 'PUBLISHED', true);
 
 INSERT INTO news(title, summary, content, image_url, news_date, status, is_active) VALUES
-('El basquet sigue con la racha de victorias', 'El equipo de basquet logró otra victoria para continuar puntero en la tabla',
- 'Durante la jornada del sábado, el equipo de básquet pudo obtener otra victoria por 60 a 42, continuando así como punteros del torneo. Recordemos que el equipo continúa invicto, y vienen encaminados al título.',
- 'https://res.cloudinary.com/dkcpxysrt/image/upload/v1749160177/ayuaae4dnqzeawbnttly.jpg', '2025-05-06', 'PUBLISHED', true);
-
+('Triunfo contundente en la ruta', 'El equipo visitante obtuvo una victoria sólida fuera de casa',
+ 'Lejos de su estadio, el equipo ganó 85 a 60, destacando el rendimiento colectivo y la efectividad en los tiros de 3 puntos.',
+ 'https://cdn.pixabay.com/photo/2024/02/26/14/13/people-8598065_1280.jpg', '2025-06-02', 'PUBLISHED', true);
 
 INSERT INTO news(title, summary, content, image_url, news_date, status, is_active) VALUES
 ('El basquet sigue con la racha de victorias', 'El equipo de basquet logró otra victoria para continuar puntero en la tabla',

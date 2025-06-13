@@ -51,7 +51,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public List<News> getAllActive() {
 
-        return newsRepository.findAllByIsActiveTrue().stream()
+        return newsRepository.findAllByIsActiveTrueOrderByDateDesc().stream()
                 .map(news -> modelMapper.map(news, News.class))
                 .collect(Collectors.toList());
     }
@@ -68,7 +68,8 @@ public class NewsServiceImpl implements NewsService {
         LocalDate localFromDate = LocalDate.parse(date);
         entity.setDate(java.sql.Date.valueOf(localFromDate));
         entity.setImageUrl(imageUrl);
-        entity.setStatus(NewsStatus.CREATED);
+        entity.setStatus(NewsStatus.PUBLISHED);
+        entity.setActive(true);
         NewsEntity saved = newsRepository.save(entity);
 
         System.out.println("URL CLOUDINARY: " + imageUrl);

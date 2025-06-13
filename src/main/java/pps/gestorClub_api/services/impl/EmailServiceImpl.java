@@ -102,7 +102,7 @@ public class EmailServiceImpl implements EmailService {
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
         helper.setTo(sendTo);
-        helper.setSubject("¡Ya eres Socio del CLub!");
+        helper.setSubject("¡Recibimos tu Solicitud!");
         helper.setText(cleanHtml, true);
 
         mailSender.send(message);
