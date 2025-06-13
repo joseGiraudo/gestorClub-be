@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import pps.gestorClub_api.dtos.payments.PaymentDto;
+import pps.gestorClub_api.dtos.payments.PaymentPayDTO;
 import pps.gestorClub_api.entities.FeeEntity;
 import pps.gestorClub_api.entities.MemberEntity;
 import pps.gestorClub_api.entities.PaymentEntity;
@@ -174,12 +175,16 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public Payment update(Long id, Payment payment) {
+    public PaymentDto update(Long id, PaymentDto payment) {
         PaymentEntity existingEntity = paymentRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró el pago con id: " + id));
 
+        existingEntity.setStatus(payment.getStatus());
+        existingEntity.setMethod(payment.getMethod());
+        existingEntity.setStatus(payment.getStatus());
+
         PaymentEntity updatedEntity = paymentRepository.save(modelMapper.map(payment, PaymentEntity.class));
-        return modelMapper.map(updatedEntity, Payment.class);
+        return convertToDto(updatedEntity);
     }
 
     @Override
@@ -222,6 +227,22 @@ public class PaymentServiceImpl implements PaymentService {
                 emailService.sendPaymentsEmail(member.getEmail(), fullName, payments);
             }
         }
+    }
+
+    @Override
+    public void markAsPaid(PaymentPayDTO payDTO) {
+        Payment payment = getById(payDTO.getPaymentId());
+
+        // Evitar sobrescrituras si ya está pagado
+        if (payment.getStatus() == PaymentStatus.APPROVED) {
+            return;
+        }
+
+        payment.setStatus(PaymentStatus.APPROVED);
+        payment.setMethod(payDTO.getMethod());
+        payment.setPaymentDate(Date.from(Instant.now()));
+
+        paymentRepository.save(modelMapper.map(payment, PaymentEntity.class));
     }
 
     @Override

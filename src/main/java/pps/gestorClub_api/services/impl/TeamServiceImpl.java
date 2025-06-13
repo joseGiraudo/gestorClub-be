@@ -15,6 +15,7 @@ import pps.gestorClub_api.repositories.MemberRepository;
 import pps.gestorClub_api.repositories.TeamRepository;
 import pps.gestorClub_api.services.TeamService;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -90,29 +91,33 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public void addMember(Long teamId, Long memberId) {
-        TeamEntity teamEntity = teamRepository.findById(teamId)
+    public void updateMembers(Long teamId, List<Long> memberIds) {
+        TeamEntity team = teamRepository.findById(teamId)
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró el equipo con id: " + teamId));
 
-        MemberEntity memberEntity = memberRepository.findById(memberId)
-                .orElseThrow(() -> new EntityNotFoundException("No se encontró el socio con id: " + memberId));
+        List<MemberEntity> newMembers = memberRepository.findAllById(memberIds);
 
-        teamEntity.getMembers().add(memberEntity);
-        teamRepository.save(teamEntity);
+        team.getMembers().clear();              // Quita todos los miembros actuales
+        team.getMembers().addAll(newMembers);   // Agrega los nuevos miembros
+
+        teamRepository.save(team);
     }
 
-    @Override
-    public void removeMember(Long teamId, Long memberId) {
-
-        TeamEntity teamEntity = teamRepository.findById(teamId)
-                .orElseThrow(() -> new EntityNotFoundException("No se encontró el equipo con id: " + teamId));
-
-        MemberEntity memberEntity = memberRepository.findById(memberId)
-                .orElseThrow(() -> new EntityNotFoundException("No se encontró el socio con id: " + memberId));
-
-        teamEntity.getMembers().remove(memberEntity);
-        teamRepository.save(teamEntity);
-    }
+//    @Override
+//    public void removeMembers(Long teamId, List<Long> memberIds) {
+//
+//        TeamEntity teamEntity = teamRepository.findById(teamId)
+//                .orElseThrow(() -> new EntityNotFoundException("No se encontró el equipo con id: " + teamId));
+//
+//        List<MemberEntity> membersToRemove = memberRepository.findAllById(memberIds);
+//
+//        if (membersToRemove.size() != memberIds.size()) {
+//            throw new EntityNotFoundException("Uno o más socios a eliminar no se encontraron.");
+//        }
+//
+//        teamEntity.getMembers().removeAll(membersToRemove);
+//        teamRepository.save(teamEntity);
+//    }
 
     @Override
     public List<Member> getTeamMembers(Long teamId) {

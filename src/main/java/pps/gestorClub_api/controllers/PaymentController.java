@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pps.gestorClub_api.dtos.payments.MonthlyDTO;
 import pps.gestorClub_api.dtos.payments.PaymentDto;
+import pps.gestorClub_api.dtos.payments.PaymentPayDTO;
 import pps.gestorClub_api.models.Payment;
 import pps.gestorClub_api.services.PaymentService;
 
@@ -76,10 +77,10 @@ public class PaymentController {
 //    }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Payment> updatePayment(
+    public ResponseEntity<PaymentDto> updatePayment(
             @PathVariable("id") Long id,
-            @Valid @RequestBody Payment payment) {
-        Payment response = paymentService.update(id, payment);
+            @Valid @RequestBody PaymentDto payment) {
+        PaymentDto response = paymentService.update(id, payment);
 
         return ResponseEntity.ok(response);
     }
@@ -103,5 +104,12 @@ public class PaymentController {
 
         paymentService.sendPendingPaymentsEmail();
         return ResponseEntity.ok("Emails enviados");
+    }
+
+    @PostMapping("/pay")
+    public ResponseEntity<String> pay(@Valid @RequestBody PaymentPayDTO payDTO) {
+
+        paymentService.markAsPaid(payDTO);
+        return ResponseEntity.ok("Pago aprobado correctamente");
     }
 }

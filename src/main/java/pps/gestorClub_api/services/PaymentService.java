@@ -3,6 +3,8 @@ package pps.gestorClub_api.services;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import pps.gestorClub_api.dtos.payments.PaymentDto;
+import pps.gestorClub_api.dtos.payments.PaymentPayDTO;
+import pps.gestorClub_api.enums.PaymentMethod;
 import pps.gestorClub_api.models.Fee;
 import pps.gestorClub_api.models.Payment;
 
@@ -20,7 +22,7 @@ public interface PaymentService {
 
     Payment create(Payment payment);
 
-    Payment update(Long id, Payment payment);
+    PaymentDto update(Long id, PaymentDto payment);
 
     List<Payment> getPendingPayments(String dni);
 
@@ -28,5 +30,6 @@ public interface PaymentService {
 
     void sendPendingPaymentsEmail();
 
+    void markAsPaid(PaymentPayDTO payDTO);
     void markAsPaidMercadoPago(Long paymentId, Long mercadoPagoPaymentId);
 }

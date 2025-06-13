@@ -57,20 +57,11 @@ public class TeamController {
         return ResponseEntity.ok(teams);
     }
 
-    @PostMapping("/{id}/add-member")
+    @PutMapping("/{id}/members")
     public ResponseEntity<Void> addMember(
             @PathVariable("id") Long id,
-            @RequestBody TeamMemberDto memberDto) {
-        teamService.addMember(id, memberDto.getId());
-
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("/{id}/remove-member")
-    public ResponseEntity<Void> removeMember(
-            @PathVariable("id") Long id,
-            @RequestBody TeamMemberDto memberDto) {
-        teamService.removeMember(id, memberDto.getId());
+            @RequestBody List<Long> memberIds) {
+        teamService.updateMembers(id, memberIds);
 
         return ResponseEntity.ok().build();
     }
