@@ -76,7 +76,10 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public void delete(Long id) {
+        TeamEntity teamEntity = teamRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró el equipo con id: " + id));
 
+        teamRepository.delete(teamEntity);
     }
 
     @Override

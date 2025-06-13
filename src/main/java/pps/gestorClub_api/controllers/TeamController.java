@@ -65,4 +65,11 @@ public class TeamController {
 
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTeam(@PathVariable("id") Long id) {
+        teamService.delete(id);
+
+        return ResponseEntity.ok().build();
+    }
 }
