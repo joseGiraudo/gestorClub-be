@@ -107,9 +107,9 @@ public class PaymentController {
     }
 
     @PostMapping("/pay")
-    public ResponseEntity<String> pay(@Valid @RequestBody PaymentPayDTO payDTO) {
+    public ResponseEntity<Void> pay(@Valid @RequestBody PaymentPayDTO payDTO) {
 
         paymentService.markAsPaid(payDTO);
-        return ResponseEntity.ok("Pago aprobado correctamente");
+        return ResponseEntity.ok().build();
     }
 }
