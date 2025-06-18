@@ -9,6 +9,7 @@ import pps.gestorClub_api.enums.MemberStatus;
 import pps.gestorClub_api.enums.MemberType;
 import pps.gestorClub_api.enums.UserRole;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +40,7 @@ public class MemberEntity extends BaseEntity {
     private String email;
 
     @Column(name = "birthdate", nullable = false)
-    private Date birthdate;
+    private LocalDate birthdate;
 
     @Column(name = "phone")
     private String phone;

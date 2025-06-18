@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import pps.gestorClub_api.enums.MemberStatus;
 import pps.gestorClub_api.enums.MemberType;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -20,7 +21,7 @@ public class MemberDto {
     private String lastName;
     private String dni;
     private String email;
-    private Date birthdate;
+    private LocalDate birthdate;
     private String phone;
     private String address;
     private MemberType type;

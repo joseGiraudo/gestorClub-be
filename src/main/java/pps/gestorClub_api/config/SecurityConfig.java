@@ -32,6 +32,7 @@ public class SecurityConfig {
                         .requestMatchers("/news/**").permitAll()
                         .requestMatchers("/payments/**").permitAll()
                         .requestMatchers("/teams/**").permitAll()
+                        .requestMatchers("/reports/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

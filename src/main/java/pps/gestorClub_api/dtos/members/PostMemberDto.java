@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import pps.gestorClub_api.enums.MemberType;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -38,7 +39,7 @@ public class PostMemberDto {
 
     @NotNull(message = "Member birthdate cannot be null")
     @JsonProperty("birthdate")
-    private Date birthdate;
+    private LocalDate birthdate;
 
     @NotNull(message = "Member type cannot be null")
     @JsonProperty("type")
