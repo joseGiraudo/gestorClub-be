@@ -11,6 +11,7 @@ import pps.gestorClub_api.models.Fee;
 import pps.gestorClub_api.repositories.FeeRepository;
 import pps.gestorClub_api.services.FeeService;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,9 +38,11 @@ public class FeeServiceImpl implements FeeService {
         List<FeeEntity> feeEntities = feeRepository.findAll();
 
         return feeEntities.stream()
-                .map(feeEntity -> {
-                    return modelMapper.map(feeEntity, Fee.class);
-                }).collect(Collectors.toList());
+                .sorted(Comparator
+                        .comparing(FeeEntity::getYear).reversed()
+                        .thenComparing(FeeEntity::getMonth, Comparator.reverseOrder()))
+                .map(feeEntity -> modelMapper.map(feeEntity, Fee.class))
+                .collect(Collectors.toList());
     }
 
     @Override

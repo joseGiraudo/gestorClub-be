@@ -25,4 +25,6 @@ public interface PaymentRepository extends JpaRepository<PaymentEntity, Long>, J
 
     @Query("SELECT COUNT(p) FROM PaymentEntity p WHERE p.status = :status")
     Long countByStatus(@Param("status") PaymentStatus status);
+
+    List<PaymentEntity> findByFeeId(Long feeId);
 }
