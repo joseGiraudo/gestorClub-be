@@ -10,6 +10,6 @@ public interface MercadoPagoService {
 
     Preference createPreference(List<Long> paymentsIds) throws MPException, MPApiException;
 
-    String receiveNotification(String topic, String resource) throws MPException, MPApiException;
+    String receiveNotification(String resource, String topic) throws MPException, MPApiException;
 
 }

@@ -40,8 +40,8 @@ INSERT INTO fees (month_period, year_period, amount) VALUES
 
 INSERT INTO payments (member_id, fee_id, issued_date, payment_date, status, method, mercado_pago_id, recorded_by) VALUES
 (1, 1, '2025-05-01', '2025-05-01', 'APPROVED', 'TRANSFER', NULL, NULL),
-(2, 1, '2025-05-02', '2025-05-02', 'PENDING', 'TRANSFER', NULL, NULL),
-(3, 1, '2025-05-03', '2025-05-03', 'PENDING', NULL, NULL, NULL),
+(2, 1, '2025-05-02', NULL, 'PENDING', NULL, NULL, NULL),
+(3, 1, '2025-05-03', NULL, 'PENDING', NULL, NULL, NULL),
 (4, 1, '2025-05-04', '2025-05-04', 'APPROVED', 'TRANSFER', NULL, NULL),
 (5, 1, '2025-05-04', NULL, 'PENDING', NULL, NULL, NULL),
 (6, 1, '2025-05-04', NULL, 'PENDING', NULL, NULL, NULL),

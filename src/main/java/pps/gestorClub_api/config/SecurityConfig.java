@@ -33,6 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/payments/**").permitAll()
                         .requestMatchers("/teams/**").permitAll()
                         .requestMatchers("/reports/**").permitAll()
+                        .requestMatchers("/api/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

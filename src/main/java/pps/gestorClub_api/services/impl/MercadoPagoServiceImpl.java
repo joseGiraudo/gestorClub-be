@@ -4,12 +4,15 @@ import com.mercadopago.MercadoPagoConfig;
 import com.mercadopago.client.merchantorder.MerchantOrderClient;
 import com.mercadopago.client.payment.PaymentClient;
 import com.mercadopago.client.payment.PaymentRefundClient;
-import com.mercadopago.client.preference.*;
+import com.mercadopago.client.preference.PreferenceClient;
+import com.mercadopago.client.preference.PreferenceItemRequest;
+import com.mercadopago.client.preference.PreferenceRequest;
+import com.mercadopago.client.preference.PreferenceBackUrlsRequest;
+import com.mercadopago.resources.preference.Preference;
 import com.mercadopago.exceptions.MPApiException;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.merchantorder.MerchantOrder;
 import com.mercadopago.resources.merchantorder.MerchantOrderPayment;
-import com.mercadopago.resources.preference.Preference;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,19 +30,15 @@ import java.util.*;
 @RequiredArgsConstructor
 public class MercadoPagoServiceImpl implements MercadoPagoService {
 
-    @Autowired
-    private PaymentService paymentService;
-
-    @Autowired
-    private PaymentClient paymentClient; // Cliente de Mercado Pago SDK
-
-    private final PreferenceClient preferenceClient;
-
-    private final MerchantOrderClient merchantOrderClient;
-
-    private final PaymentRefundClient paymentRefundClient;
-
+    // Inyección por constructor con @RequiredArgsConstructor
+    private final PaymentService paymentService;
     private final UserService userService;
+
+    // Clientes de MercadoPago - se inicializan después de @PostConstruct
+    private PaymentClient paymentClient;
+    private PreferenceClient preferenceClient;
+    private MerchantOrderClient merchantOrderClient;
+    private PaymentRefundClient paymentRefundClient;
 
     @Value("${front.url}")
     private String WEB_URL;
@@ -55,8 +54,13 @@ public class MercadoPagoServiceImpl implements MercadoPagoService {
     @PostConstruct
     public void init() {
         MercadoPagoConfig.setAccessToken(MP_TOKEN);
-    }
 
+        // Inicializar clientes después de configurar el token
+        this.paymentClient = new PaymentClient();
+        this.preferenceClient = new PreferenceClient();
+        this.merchantOrderClient = new MerchantOrderClient();
+        this.paymentRefundClient = new PaymentRefundClient();
+    }
 
 
     @Override
@@ -68,8 +72,8 @@ public class MercadoPagoServiceImpl implements MercadoPagoService {
 
             // Crear item
             PreferenceItemRequest preferenceItemRequest = PreferenceItemRequest.builder()
-                    .title("Cuota " + payment.getFee().getMonth() + "/" + payment.getFee().getYear() +
-                            " -  N°: " + payment.getId())
+                    .title("Club Independencia. Cuota N°: " + payment.getId() +
+                            ". Referencia " + payment.getFee().getMonth() + " - " + payment.getFee().getYear())
                     .quantity(1)
                     .unitPrice(payment.getFee().getAmount())
                     .currencyId(CURRENCY)
@@ -81,13 +85,13 @@ public class MercadoPagoServiceImpl implements MercadoPagoService {
 
         // Configurar URLs de retorno
         PreferenceBackUrlsRequest backUrls = PreferenceBackUrlsRequest.builder()
-                .success(BACK_URL + "/payment/success")
-                .pending(BACK_URL + "/payment/pending")
-                .failure(BACK_URL + "/payment/failure")
+                .success(BACK_URL + "/api/v1/mp/success")
+                .pending(BACK_URL + "/api/v1/mp/pending")
+                .failure(BACK_URL + "/api/v1/mp/failure")
                 .build();
 
         Map<String, Object> metadata = new HashMap<>();
-        metadata.put("paymentIds", paymentsIds);
+        metadata.put("payment_ids", paymentsIds);
 
         // Crear preferencia
         PreferenceRequest preferenceRequest = PreferenceRequest.builder()
@@ -96,51 +100,59 @@ public class MercadoPagoServiceImpl implements MercadoPagoService {
                 .autoReturn("approved")
                 .externalReference("MP-" + System.currentTimeMillis())
                 .metadata(metadata)
+                .notificationUrl(notificationUrl)
                 .build();
 
         return preferenceClient.create(preferenceRequest);
     }
 
-    @Override
-    public String receiveNotification(String topic, String resource) throws MPException, MPApiException {
+            @Override
+            public String receiveNotification(String resource, String topic) throws MPException, MPApiException {
 
-        if ("merchant_order".equalsIgnoreCase(topic) && resource != null) {
-            // Extraer el ID de la orden desde la URL del recurso
-            String[] resourceParts = resource.split("/");
-            Long merchantOrderId = Long.valueOf(resourceParts[resourceParts.length - 1]);
+                if ("merchant_order".equalsIgnoreCase(topic) && resource != null) {
+                    System.out.println("✅ Notificación recibida: topic = " + topic + ", resource = " + resource);
 
-            MerchantOrder merchantOrder = this.merchantOrderClient.get(merchantOrderId);
+                    // Extraer el ID de la orden desde la URL del recurso
+                    String[] resourceParts = resource.split("/");
+                    Long merchantOrderId = Long.valueOf(resourceParts[resourceParts.length - 1]);
 
-            if ("paid".equalsIgnoreCase(merchantOrder.getOrderStatus())) {
+                    MerchantOrder merchantOrder = this.merchantOrderClient.get(merchantOrderId);
 
-                // Recorremos los pagos asociados
-                List<MerchantOrderPayment> payments = merchantOrder.getPayments();
-                Set<Long> processedPaymentIds = new HashSet<>();
+                    System.out.println("🧾 Orden de pago encontrada: " + merchantOrder.getId());
 
-                for (MerchantOrderPayment mop : payments) {
-                    // Validamos estado del pago
-                    if (!"approved".equalsIgnoreCase(mop.getStatus())) continue;
+                    if ("paid".equalsIgnoreCase(merchantOrder.getOrderStatus())) {
 
-                    // Obtener el Payment completo
-                    com.mercadopago.resources.payment.Payment mpPayment = paymentClient.get(mop.getId());
+                        // Recorremos los pagos asociados
+                        List<MerchantOrderPayment> payments = merchantOrder.getPayments();
+                        Set<Long> processedPaymentIds = new HashSet<>();
 
-                    Map<String, Object> metadata = mpPayment.getMetadata();
+                        for (MerchantOrderPayment mop : payments) {
+                            // Validamos estado del pago
+                            if (!"approved".equalsIgnoreCase(mop.getStatus())) continue;
 
-                    if (metadata != null && metadata.containsKey("paymentIds")) {
+                            // Obtener el Payment completo
+                            com.mercadopago.resources.payment.Payment mpPayment = paymentClient.get(mop.getId());
 
-                        List<Integer> paymentIds = (List<Integer>) metadata.get("paymentIds");
+                            Map<String, Object> metadata = mpPayment.getMetadata();
 
-                        for (Integer id : paymentIds) {
-                            Long paymentId = id.longValue();
-                            if (processedPaymentIds.add(paymentId)) {
-                                paymentService.markAsPaidMercadoPago(paymentId, mpPayment.getId()); // Marcás la cuota como pagada en tu BD
+                            System.out.println("📦 Metadata del pago: " + metadata);
+
+                            if (metadata != null && metadata.containsKey("payment_ids")) {
+                                List<?> rawIds = (List<?>) metadata.get("payment_ids");
+
+                                for (Object rawId : rawIds) {
+                                    Long paymentId = ((Number) rawId).longValue(); // ⚠️ Maneja Double, Integer, etc.
+
+                                    if (processedPaymentIds.add(paymentId)) {
+                                        paymentService.markAsPaidMercadoPago(paymentId, mpPayment.getId());
+                                        System.out.println("✅ Cuota marcada como pagada: " + paymentId);
+                                    }
+                                }
                             }
                         }
                     }
                 }
-            }
-        }
 
-        return "Notificación recibida";
-    }
+                return "Notificación recibida";
+            }
 }
