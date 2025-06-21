@@ -16,6 +16,7 @@ import pps.gestorClub_api.enums.MemberStatus;
 import pps.gestorClub_api.models.Member;
 import pps.gestorClub_api.services.MemberService;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -66,19 +67,23 @@ public class MemberController {
     }
 
     @PutMapping("approve/{id}")
-    public ResponseEntity<String> approveMember(@PathVariable("id") Long id) {
+    public ResponseEntity approveMember(@PathVariable("id") Long id) {
 
         memberService.approveMember(id);
 
-        return ResponseEntity.ok("Socio aprobado con éxito");
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Collections.singletonMap("message", "Socio aprobado con éxito"));
     }
 
     @PutMapping("/reject/{id}")
-    public ResponseEntity<String> rejectMember(@PathVariable("id") Long id) {
+    public ResponseEntity rejectMember(@PathVariable("id") Long id) {
 
         memberService.rejectMember(id);
 
-        return ResponseEntity.ok("Socio rechazado con éxito");
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Collections.singletonMap("message", "Socio rechazado con éxito"));
     }
 
     @GetMapping("/status/{status}")

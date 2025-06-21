@@ -15,6 +15,7 @@ import pps.gestorClub_api.dtos.payments.PaymentPayDTO;
 import pps.gestorClub_api.models.Payment;
 import pps.gestorClub_api.services.PaymentService;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -90,7 +91,9 @@ public class PaymentController {
 
         paymentService.generateMonthlyPayments(monthlyDTO.getMonth(), monthlyDTO.getYear());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body("Ordenes de pago creadas");
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(Collections.singletonMap("message", "Órdenes de pago creadas"));
     }
 
     @GetMapping("/pending/{dni}")

@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import pps.gestorClub_api.models.News;
 import pps.gestorClub_api.services.NewsService;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -60,7 +61,7 @@ public class NewsController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> createNews(
+    public ResponseEntity createNews(
             @RequestParam String title,
             @RequestParam String summary,
             @RequestParam String content,
@@ -72,6 +73,8 @@ public class NewsController {
 
         newsService.create(title, summary, content, date, image);
 
-        return ResponseEntity.ok("Noticia guardada");
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Collections.singletonMap("message", "Noticia creada con éxito"));
     }
 }

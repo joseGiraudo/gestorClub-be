@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pps.gestorClub_api.dtos.fees.FeeDto;
 import pps.gestorClub_api.models.Fee;
 import pps.gestorClub_api.services.FeeService;
 import pps.gestorClub_api.services.FeeService;
@@ -31,7 +32,7 @@ public class FeeController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Fee> createFee(@Valid @RequestBody Fee fee) {
+    public ResponseEntity<Fee> createFee(@Valid @RequestBody FeeDto fee) {
         Fee response = feeService.create(fee);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -46,7 +47,7 @@ public class FeeController {
     @PutMapping("/{id}")
     public ResponseEntity<Fee> createFee(
             @PathVariable("id") Long id,
-            @Valid @RequestBody Fee fee) {
+            @Valid @RequestBody FeeDto fee) {
         Fee response = feeService.update(id, fee);
 
         return ResponseEntity.ok(response);

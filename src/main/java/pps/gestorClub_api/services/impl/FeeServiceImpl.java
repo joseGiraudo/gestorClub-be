@@ -5,6 +5,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pps.gestorClub_api.dtos.fees.FeeDto;
 import pps.gestorClub_api.entities.FeeEntity;
 import pps.gestorClub_api.entities.MemberEntity;
 import pps.gestorClub_api.models.Fee;
@@ -13,6 +14,7 @@ import pps.gestorClub_api.services.FeeService;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,19 +48,30 @@ public class FeeServiceImpl implements FeeService {
     }
 
     @Override
-    public Fee create(Fee fee) {
+    public Fee create(FeeDto fee) {
+        Optional<FeeEntity> existingFee = feeRepository.findByMonthAndYear(fee.getMonth(), fee.getYear());
 
-        FeeEntity feeEntity = modelMapper.map(fee, FeeEntity.class);
+        if(existingFee.isPresent()) {
+            throw new IllegalArgumentException("Ya existe una cuota para ese mes y año");
+        }
+
+        FeeEntity feeEntity = new FeeEntity();
+        feeEntity.setMonth(fee.getMonth());
+        feeEntity.setYear(fee.getYear());
+        feeEntity.setAmount(fee.getAmount());
 
         return modelMapper.map(feeRepository.save(feeEntity), Fee.class);
     }
 
     @Override
-    public Fee update(Long id, Fee fee) {
+    public Fee update(Long id, FeeDto fee) {
         FeeEntity existingEntity = feeRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró la cuota con id: " + id));
 
-        FeeEntity updatedEntity = feeRepository.save(modelMapper.map(fee, FeeEntity.class));
+        existingEntity.setMonth(fee.getMonth());
+        existingEntity.setYear(fee.getYear());
+        existingEntity.setAmount(fee.getAmount());
+        FeeEntity updatedEntity = feeRepository.save(existingEntity);
 
         return modelMapper.map(updatedEntity, Fee.class);
     }
