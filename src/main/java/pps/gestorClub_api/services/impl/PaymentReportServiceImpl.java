@@ -105,6 +105,7 @@ public class PaymentReportServiceImpl implements PaymentReportService {
         );
     }
 
+    @Override
     public FeeCollectionReportDto getFeeCollectionReport(Long feeId) {
         FeeEntity fee = feeRepository.findById(feeId)
                 .orElseThrow(() -> new EntityNotFoundException("Fee no encontrada"));

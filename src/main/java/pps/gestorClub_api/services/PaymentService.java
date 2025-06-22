@@ -24,6 +24,7 @@ public interface PaymentService {
 
     PaymentDto update(Long id, PaymentDto payment);
 
+    List<Payment> getPaymentsByFeeId(Long feeId);
     List<Payment> getPendingPayments(String dni);
 
     void generateMonthlyPayments(Integer month, Integer Year);

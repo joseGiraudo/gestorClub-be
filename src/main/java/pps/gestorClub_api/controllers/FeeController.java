@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pps.gestorClub_api.dtos.fees.FeeDto;
+import pps.gestorClub_api.dtos.fees.FeeStatsDto;
 import pps.gestorClub_api.models.Fee;
 import pps.gestorClub_api.services.FeeService;
 import pps.gestorClub_api.services.FeeService;
@@ -25,6 +26,12 @@ public class FeeController {
         return ResponseEntity.ok(fees);
     }
 
+    @GetMapping("stats")
+    public ResponseEntity<List<FeeStatsDto>> getAllFeesWithStats() {
+        List<FeeStatsDto> fees = feeService.getAllWithStats();
+        return ResponseEntity.ok(fees);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Fee> getFeeById(@PathVariable Long id) {
         Fee fee = feeService.getById(id);
@@ -33,7 +40,7 @@ public class FeeController {
 
     @PostMapping("")
     public ResponseEntity<Fee> createFee(@Valid @RequestBody FeeDto fee) {
-        Fee response = feeService.create(fee);
+        Fee response = feeService.createFeeAndGeneratePayments(fee);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }

@@ -204,6 +204,19 @@ public class PaymentServiceImpl implements PaymentService {
 
 
     @Override
+    public List<Payment> getPaymentsByFeeId(Long feeId) {
+        FeeEntity feeEntity = feeRepository.findById(feeId)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró la cuota: " + feeId));
+
+        List<PaymentEntity> paymentEntities = paymentRepository.findByFeeId(feeId);
+
+        return paymentEntities.stream()
+                .map(paymentEntity -> {
+                    return modelMapper.map(paymentEntity, Payment.class);
+                }).collect(Collectors.toList());
+    }
+
+    @Override
     public List<Payment> getPendingPayments(String dni) {
         MemberEntity memberEntity = memberRepository.findByDni(dni)
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró el socio con dni: " + dni));
