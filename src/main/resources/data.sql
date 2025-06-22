@@ -96,7 +96,7 @@ INSERT INTO team_members(team_id, member_id) VALUES
 
 INSERT INTO news(title, summary, content, image_url, news_date, status, is_active) VALUES
 ('Se juega una nueva fecha del básquet masculino', 'El próximo sábado se disputa la fecha 7 del torneo, donde enfrentan a El Rejunte',
- 'El equipo buscará alcanzar una nueva victoria para mantenerse en lo alto de la tabla, luego de un fin de semana de descanso. \nCon algunas bajas por lesiones, son 9 los jugadores que se presentarán a defender los colores del club, y se espera un partido apretado.\nVamos Inde!',
+ 'El equipo buscará alcanzar una nueva victoria para mantenerse en lo alto de la tabla, luego de un fin de semana de descanso. \n Con algunas bajas por lesiones, son 9 los jugadores que se presentarán a defender los colores del club, y se espera un partido apretado.\n Vamos Inde!',
  'https://res.cloudinary.com/dkcpxysrt/image/upload/v1750443094/xf6jntwfv3am86v50a5r.png', '2025-06-20', 'PUBLISHED', true);
 
 INSERT INTO news(title, summary, content, image_url, news_date, status, is_active) VALUES
