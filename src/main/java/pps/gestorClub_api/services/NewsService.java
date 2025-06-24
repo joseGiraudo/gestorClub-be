@@ -14,7 +14,7 @@ public interface NewsService {
 
     News create(String title, String summary, String content, String date, MultipartFile image);
 
-    News update(Long id, News news);
+    News update(Long id, String title, String summary, String content, String date, MultipartFile image);
 
     void delete(Long id);
     List<News> getLast3News();

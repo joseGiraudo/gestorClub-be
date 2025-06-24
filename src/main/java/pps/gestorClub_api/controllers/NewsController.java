@@ -38,26 +38,10 @@ public class NewsController {
         return ResponseEntity.ok(news);
     }
 
-//    @PostMapping("")
-//    public ResponseEntity<News> createNews(@Valid @RequestBody News news) {
-//        News response = newsService.create(news);
-//
-//        return ResponseEntity.status(HttpStatus.CREATED).body(response);
-//    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteNews(@PathVariable("id") Long newsId) {
         newsService.delete(newsId);
         return ResponseEntity.noContent().build();
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<News> createNews(
-            @PathVariable("id") Long id,
-            @Valid @RequestBody News news) {
-        News response = newsService.update(id, news);
-
-        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/create")
@@ -76,5 +60,21 @@ public class NewsController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(Collections.singletonMap("message", "Noticia creada con éxito"));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateNews(
+            @PathVariable Long id,
+            @RequestParam String title,
+            @RequestParam String summary,
+            @RequestParam String content,
+            @RequestParam String date,
+            @RequestParam(required = false) MultipartFile image
+    ) {
+        newsService.update(id, title, summary, content, date, image);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Collections.singletonMap("message", "Noticia actualizada con éxito"));
     }
 }

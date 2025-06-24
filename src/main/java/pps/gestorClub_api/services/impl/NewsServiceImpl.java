@@ -78,19 +78,23 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public News update(Long id, News news) {
+    public News update(Long id, String title, String summary, String content, String date, MultipartFile image) {
+        NewsEntity entity = newsRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró la noticia con id: " + id));
 
-        NewsEntity newsEntity = newsRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontró la noticia con id: " + id));
+        entity.setTitle(title);
+        entity.setSummary(summary);
+        entity.setContent(content);
+        entity.setDate(java.sql.Date.valueOf(LocalDate.parse(date)));
 
-        // Actualizamos los campos editables
-        newsEntity.setTitle(news.getTitle());
-        newsEntity.setSummary(news.getSummary());
-        newsEntity.setContent(news.getContent());
-        // Podés también actualizar el status si corresponde
-        // entity.setStatus(news.getStatus());
+        // Solo actualiza imagen si se envió una nueva
+        if (image != null && !image.isEmpty()) {
+            String imageUrl = cloudinaryService.uploadImage(image);
+            entity.setImageUrl(imageUrl);
+            System.out.println("NUEVA URL CLOUDINARY: " + imageUrl);
+        }
 
-        NewsEntity updated = newsRepository.save(newsEntity);
+        NewsEntity updated = newsRepository.save(entity);
         return modelMapper.map(updated, News.class);
     }
 

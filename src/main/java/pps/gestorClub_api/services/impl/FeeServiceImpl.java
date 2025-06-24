@@ -63,8 +63,8 @@ public class FeeServiceImpl implements FeeService {
 
         return feeEntities.stream()
                 .sorted(Comparator
-                        .comparing(FeeEntity::getYear).reversed()
-                        .thenComparing(FeeEntity::getMonth).reversed()
+                        .comparing(FeeEntity::getYear, Comparator.reverseOrder())
+                        .thenComparing(FeeEntity::getMonth, Comparator.reverseOrder())
                 )
                 .map(fee -> {
                     List<Payment> payments = paymentService.getPaymentsByFeeId(fee.getId());
