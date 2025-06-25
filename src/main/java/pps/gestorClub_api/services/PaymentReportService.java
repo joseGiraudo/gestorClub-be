@@ -15,5 +15,6 @@ public interface PaymentReportService {
     public CollectionRateDto getCollectionRate();
 
     public FullPaymentReportDto getFullReport();
+
     public FeeCollectionReportDto getFeeCollectionReport(Long feeId);
 }

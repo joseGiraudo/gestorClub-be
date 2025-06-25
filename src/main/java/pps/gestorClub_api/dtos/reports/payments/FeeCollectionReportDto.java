@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,4 +18,6 @@ public class FeeCollectionReportDto {
     private BigDecimal totalCollected; // Suma de pagos
     private BigDecimal expectedTotal;  // feeAmount * issuedCount
     private BigDecimal collectionRate; // % = totalCollected / expectedTotal * 100
+    private List<PaymentStatusSummaryDto> statusSummary;
+    private List<PaymentMethodSummaryDto> methodSummary;
 }

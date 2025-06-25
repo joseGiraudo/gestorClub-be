@@ -39,8 +39,8 @@ public class PaymentReportServiceImpl implements PaymentReportService {
                             Calendar cal = Calendar.getInstance();
                             cal.setTime(p.getIssuedDate());
                             int year = cal.get(Calendar.YEAR);
-                            Month month = Month.of(cal.get(Calendar.MONTH) + 1);
-                            return year + "-" + month.name();  // e.g. 2025-APRIL
+                            int month = cal.get(Calendar.MONTH) + 1;
+                            return year + "-" + month;
                         },
                         Collectors.reducing(
                                 BigDecimal.ZERO,
@@ -51,10 +51,12 @@ public class PaymentReportServiceImpl implements PaymentReportService {
                 .entrySet().stream()
                 .map(e -> {
                     String[] parts = e.getKey().split("-");
-                    return new MonthlyPaymentDto(parts[1], Integer.parseInt(parts[0]), e.getValue());
+                    int year = Integer.parseInt(parts[0]);
+                    int month = Integer.parseInt(parts[1]);
+                    return new MonthlyPaymentDto(month, year, e.getValue());
                 })
                 .sorted(Comparator.comparing(MonthlyPaymentDto::getYear)
-                        .thenComparing(dto -> Month.valueOf(dto.getMonth())))
+                        .thenComparing(MonthlyPaymentDto::getMonth))
                 .toList();
     }
 
@@ -132,6 +134,25 @@ public class PaymentReportServiceImpl implements PaymentReportService {
 
         String label = fee.getMonth() + "/" + fee.getYear();
 
+        // Agrupar por estado y contar
+        List<PaymentStatusSummaryDto> statusSummary = payments.stream()
+                .collect(Collectors.groupingBy(
+                        p -> p.getStatus().name(),
+                        Collectors.counting()))
+                .entrySet().stream()
+                .map(e -> new PaymentStatusSummaryDto(e.getKey(), e.getValue()))
+                .collect(Collectors.toList());
+
+        // Agrupar por método de pago y contar
+        List<PaymentMethodSummaryDto> methodSummary = payments.stream()
+                .filter(p -> p.getMethod() != null)
+                .collect(Collectors.groupingBy(
+                        p -> p.getMethod().name(),
+                        Collectors.counting()))
+                .entrySet().stream()
+                .map(e -> new PaymentMethodSummaryDto(e.getKey(), e.getValue()))
+                .collect(Collectors.toList());
+
         return new FeeCollectionReportDto(
                 fee.getId(),
                 label,
@@ -139,7 +160,9 @@ public class PaymentReportServiceImpl implements PaymentReportService {
                 paidCount,
                 totalCollected,
                 expectedTotal,
-                collectionRate
+                collectionRate,
+                statusSummary,
+                methodSummary
         );
     }
 }
