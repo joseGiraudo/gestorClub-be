@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pps.gestorClub_api.dtos.user.PutUserDto;
+import pps.gestorClub_api.dtos.user.UserDto;
 import pps.gestorClub_api.entities.UserEntity;
 import pps.gestorClub_api.models.User;
 import pps.gestorClub_api.services.UserService;
@@ -31,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping("")
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody UserDto user) {
         User response = userService.create(user);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -44,9 +46,9 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> createUser(
+    public ResponseEntity<User> updateUser(
             @PathVariable("id") Long id,
-            @Valid @RequestBody User user) {
+            @Valid @RequestBody PutUserDto user) {
         User response = userService.update(id, user);
 
         return ResponseEntity.ok(response);

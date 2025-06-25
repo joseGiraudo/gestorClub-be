@@ -1,5 +1,7 @@
 package pps.gestorClub_api.services;
 
+import pps.gestorClub_api.dtos.user.PutUserDto;
+import pps.gestorClub_api.dtos.user.UserDto;
 import pps.gestorClub_api.models.User;
 
 import java.util.List;
@@ -10,11 +12,12 @@ public interface UserService {
 
     List<User> getAll();
 
-    User create(User user);
+    User create(UserDto user);
 
-    User update(Long id, User user);
+    User update(Long id, PutUserDto user);
 
     void delete(Long id);
+    
     User getByEmail(String email);
 
     Boolean getEmailExists(String email);

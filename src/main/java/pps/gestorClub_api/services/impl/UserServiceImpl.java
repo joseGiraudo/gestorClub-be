@@ -4,6 +4,8 @@ import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pps.gestorClub_api.dtos.user.PutUserDto;
+import pps.gestorClub_api.dtos.user.UserDto;
 import pps.gestorClub_api.entities.UserEntity;
 import pps.gestorClub_api.models.User;
 import pps.gestorClub_api.repositories.UserRepository;
@@ -48,7 +50,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(User user) {
+    public User create(UserDto user) {
 
         if(getEmailExists(user.getEmail())) {
             throw new IllegalArgumentException("Email already in use");
@@ -62,15 +64,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(Long id, User user) {
+    public User update(Long id, PutUserDto user) {
 
         UserEntity userEntity = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró el usuario con id: " + id));
 
+        // Si el email cambió, validar que no esté usado por otro usuario
+        if (!userEntity.getEmail().equals(user.getEmail())) {
+            if (userRepository.existsByEmailAndIdNot(user.getEmail(), id)) {
+                throw new IllegalArgumentException("Email already in use");
+            }
+            userEntity.setEmail(user.getEmail());
+        }
 
         userEntity.setName(user.getName());
         userEntity.setLastName(user.getLastName());
         userEntity.setRole(user.getRole());
+
+        if (user.getPassword() != null && !user.getPassword().isBlank()) {
+            userEntity.setPassword(user.getPassword());
+        }
 
         UserEntity userEntityUpdated = userRepository.save(userEntity);
 
@@ -99,9 +112,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean getEmailExists(String email) {
-
-        Optional<UserEntity> userWithEmail = userRepository.findByEmail(email);
-        return userWithEmail.isPresent();
+        return userRepository.existsByEmail(email);
 
     }
 }
