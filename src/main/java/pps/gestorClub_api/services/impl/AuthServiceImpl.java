@@ -21,7 +21,7 @@ public class AuthServiceImpl implements AuthService {
         UserEntity userEntity = userRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró usuario con email: " + email));
 
-        if(userEntity.getPassword().equals(password)) {
+        if(userEntity.getPassword().equals(password) && userEntity.isActive()) {
             return Optional.of(userEntity);
         }
         return Optional.empty();

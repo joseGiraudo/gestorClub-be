@@ -45,6 +45,12 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/{id}")
+    public ResponseEntity<Void> activateUser(@PathVariable("id") Long userId) {
+        userService.activate(userId);
+        return ResponseEntity.noContent().build();
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(
             @PathVariable("id") Long id,

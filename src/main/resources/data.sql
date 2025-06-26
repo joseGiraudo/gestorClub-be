@@ -86,7 +86,7 @@ INSERT INTO payments (member_id, fee_id, issued_date, payment_date, status, meth
 INSERT INTO users (name, last_name, email, password, role, is_active) VALUES
 ('Admin', 'Admin', 'admin@correo.com', 'admin123', 'ADMIN', true),
 ('Jose', 'cd', 'committee@correo.com', 'committee123', 'COMMITTEE', true),
-('Juan', 'tesorero', 'trasurer@correo.com', 'treasurer123', 'TREASURER', true);
+('Juan', 'tesorero', 'treasurer@correo.com', 'treasurer123', 'TREASURER', false);
 
 
 INSERT INTO teams (name, description, sport)

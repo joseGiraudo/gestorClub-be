@@ -32,7 +32,7 @@ public class MemberController {
         return ResponseEntity.ok(members);
     }
 
-    @GetMapping("/member/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Member> getMemberById(@PathVariable Long id) {
         Member member = memberService.getById(id);
         return ResponseEntity.ok(member);
@@ -45,13 +45,13 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @PutMapping("/deactivate/{id}")
+    @PutMapping("deactivate/{id}")
     public ResponseEntity<Void> deactivateMember(@PathVariable("id") Long memberId) {
         memberService.deactivate(memberId);
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/activate/{id}")
+    @PutMapping("activate/{id}")
     public ResponseEntity<Void> activateMember(@PathVariable("id") Long memberId) {
         memberService.activate(memberId);
         return ResponseEntity.noContent().build();
@@ -76,7 +76,7 @@ public class MemberController {
                 .body(Collections.singletonMap("message", "Socio aprobado con éxito"));
     }
 
-    @PutMapping("/reject/{id}")
+    @PutMapping("reject/{id}")
     public ResponseEntity rejectMember(@PathVariable("id") Long id) {
 
         memberService.rejectMember(id);
@@ -86,7 +86,7 @@ public class MemberController {
                 .body(Collections.singletonMap("message", "Socio rechazado con éxito"));
     }
 
-    @GetMapping("/status/{status}")
+    @GetMapping("status/{status}")
     public ResponseEntity<List<Member>> getByStatus(@PathVariable("status") MemberStatus status) {
 
         List<Member> response = memberService.getByStatus(status);
@@ -94,19 +94,19 @@ public class MemberController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/validEmail")
+    @GetMapping("validEmail")
     public ResponseEntity<Boolean> validEmail(@RequestParam("email") String email) {
         Boolean emailExists = memberService.getEmailExists(email);
         return ResponseEntity.ok(emailExists);
     }
 
-    @GetMapping("/validDni")
+    @GetMapping("validDni")
     public ResponseEntity<Boolean> validDni(@RequestParam("dni") String dni) {
         Boolean dniExists = memberService.getDniExists(dni);
         return ResponseEntity.ok(dniExists);
     }
 
-    @GetMapping("/filters")
+    @GetMapping("filters")
     public ResponseEntity<Page<MemberDto>> getMembers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
