@@ -13,5 +13,6 @@ import java.math.BigDecimal;
 public class MonthlyPaymentDto {
     private Integer month;
     private Integer year;
-    private BigDecimal total;
+    private BigDecimal totalIssued;
+    private BigDecimal totalPaid;
 }

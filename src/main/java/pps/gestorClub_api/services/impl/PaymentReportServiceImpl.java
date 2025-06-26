@@ -18,6 +18,7 @@ import java.time.Month;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,28 +33,35 @@ public class PaymentReportServiceImpl implements PaymentReportService {
 
     @Override
     public List<MonthlyPaymentDto> getMonthlyTotals() {
-        return paymentRepository.findAll().stream()
+        // Agrupar por año-mes
+        Map<String, List<PaymentEntity>> grouped = paymentRepository.findAll().stream()
                 .filter(p -> p.getIssuedDate() != null)
-                .collect(Collectors.groupingBy(
-                        p -> {
-                            Calendar cal = Calendar.getInstance();
-                            cal.setTime(p.getIssuedDate());
-                            int year = cal.get(Calendar.YEAR);
-                            int month = cal.get(Calendar.MONTH) + 1;
-                            return year + "-" + month;
-                        },
-                        Collectors.reducing(
-                                BigDecimal.ZERO,
-                                p -> p.getFee().getAmount(),
-                                BigDecimal::add
-                        )
-                ))
-                .entrySet().stream()
-                .map(e -> {
-                    String[] parts = e.getKey().split("-");
+                .collect(Collectors.groupingBy(p -> {
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(p.getIssuedDate());
+                    int year = cal.get(Calendar.YEAR);
+                    int month = cal.get(Calendar.MONTH) + 1;
+                    return year + "-" + month;
+                }));
+
+        // Transformar a DTO con ambos totales
+        return grouped.entrySet().stream()
+                .map(entry -> {
+                    String[] parts = entry.getKey().split("-");
                     int year = Integer.parseInt(parts[0]);
                     int month = Integer.parseInt(parts[1]);
-                    return new MonthlyPaymentDto(month, year, e.getValue());
+                    List<PaymentEntity> payments = entry.getValue();
+
+                    BigDecimal totalIssued = payments.stream()
+                            .map(p -> p.getFee().getAmount())
+                            .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+                    BigDecimal totalPaid = payments.stream()
+                            .filter(p -> p.getStatus().equals(PaymentStatus.APPROVED))
+                            .map(p -> p.getFee().getAmount())
+                            .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+                    return new MonthlyPaymentDto(month, year, totalIssued, totalPaid);
                 })
                 .sorted(Comparator.comparing(MonthlyPaymentDto::getYear)
                         .thenComparing(MonthlyPaymentDto::getMonth))
