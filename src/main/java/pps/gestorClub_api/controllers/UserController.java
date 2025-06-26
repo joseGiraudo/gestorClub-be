@@ -26,7 +26,7 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         User user = userService.getById(id);
         return ResponseEntity.ok(user);
@@ -39,19 +39,19 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Long userId) {
         userService.delete(userId);
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("activate/{id}")
     public ResponseEntity<Void> activateUser(@PathVariable("id") Long userId) {
         userService.activate(userId);
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<User> updateUser(
             @PathVariable("id") Long id,
             @Valid @RequestBody PutUserDto user) {

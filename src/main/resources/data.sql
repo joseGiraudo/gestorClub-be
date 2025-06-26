@@ -90,13 +90,16 @@ INSERT INTO users (name, last_name, email, password, role, is_active) VALUES
 
 
 INSERT INTO teams (name, description, sport)
-VALUES ('Basquet Masculino', 'Equipo de basquet', 'BASKETBALL');
+VALUES ('Basquet Masculino', 'Entrenamientos: Jueves 22:00hs. Partidos: sábado', 'BASKETBALL');
+
+INSERT INTO teams (name, description, sport)
+VALUES ('Hockey Femenino', 'Entrenamientos: martes y viernes 18:30hs', 'HOCKEY');
 
 INSERT INTO teams (name, description, sport)
 VALUES ('Futbol femenino', 'Entrenamientos: martes y jueves 18:00hs', 'FOOTBALL');
 
 INSERT INTO teams (name, description, sport)
-VALUES ('Futbol Masculino', 'Equipo de futbol 7. entrenamientos miercoles 21:00hs y partidos sabados', 'FOOTBALL');
+VALUES ('Futbol Masculino', 'Entrenamientos miercoles 21:00hs y partidos sabados', 'FOOTBALL');
 
 INSERT INTO teams (name, description, sport)
 VALUES ('Futbol femenino B', 'Entrenamientos: martes y jueves 20:00hs', 'FOOTBALL');
