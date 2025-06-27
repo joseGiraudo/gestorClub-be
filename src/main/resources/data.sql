@@ -34,9 +34,7 @@ INSERT INTO fees (month_period, year_period, amount) VALUES
 (1, 2025, 5000),
 (2, 2025, 5000),
 (3, 2025, 5000),
-(4, 2025, 5000),
-(5, 2025, 5000),
-(6, 2025, 5000);
+(4, 2025, 5000);
 
 INSERT INTO payments (member_id, fee_id, issued_date, payment_date, status, method, mercado_pago_id, recorded_by) VALUES
 -- cuota 1
