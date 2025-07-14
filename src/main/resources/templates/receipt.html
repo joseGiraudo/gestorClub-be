@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Recibo de Pago - Club</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f4;
+          padding: 20px;
+        }
+
+        .container {
+          max-width: 600px;
+          margin: auto;
+          background-color: #ffffff;
+          border: 1px solid #ddd;
+          padding: 20px;
+        }
+
+        h2 {
+          color: #2e7d32;
+          text-align: center;
+          margin-bottom: 20px;
+        }
+
+        p {
+          color: #333;
+        }
+
+        table.recibo {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 10px;
+        }
+
+        table.recibo th,
+        table.recibo td {
+          border: 1px solid #ccc;
+          padding: 8px;
+          text-align: center;
+        }
+
+        table.recibo thead {
+          background-color: #dcedc8;
+          color: #333;
+        }
+
+        .total {
+          margin-top: 20px;
+          font-size: 16px;
+          font-weight: bold;
+          color: #2e7d32;
+        }
+
+        .nota {
+          color: #666;
+          font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Recibo de Pago</h2>
+    <p>Hola <strong>{{memberName}}</strong>,</p>
+    <p>Gracias por realizar el pago de las siguientes cuotas:</p>
+
+    <table class="recibo">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Fecha de Pago</th>
+            <th>Mes</th>
+            <th>Año</th>
+            <th>Monto</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{tableBody}}
+        </tbody>
+    </table>
+
+    <p class="total">Total pagado: {{total}}</p>
+    <p>Este correo es un comprobante automático de tu pago. ¡Gracias por estar al día con el club!</p>
+    <a href="https://google.com">Página Oficial del Club</a>
+    <p class="nota">Este es un mensaje automático. Por favor, no responder a este correo.</p>
+</div>
+</body>
+</html>

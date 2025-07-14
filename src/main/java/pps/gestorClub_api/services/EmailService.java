@@ -15,4 +15,6 @@ public interface EmailService {
     void sendPetitionEmail(String sendTo, String memberName);
 
     void sendPaymentsEmail(String sendTo, String memberName, List<Payment> payments);
+
+    void sendReceiptEmail(String sendTo, String memberName, List<Payment> payments);
 }

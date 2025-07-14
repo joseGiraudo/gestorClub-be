@@ -18,6 +18,7 @@ import pps.gestorClub_api.entities.PaymentEntity;
 import pps.gestorClub_api.enums.MemberStatus;
 import pps.gestorClub_api.enums.PaymentMethod;
 import pps.gestorClub_api.enums.PaymentStatus;
+import pps.gestorClub_api.models.Member;
 import pps.gestorClub_api.models.Payment;
 import pps.gestorClub_api.repositories.FeeRepository;
 import pps.gestorClub_api.repositories.MemberRepository;
@@ -27,6 +28,7 @@ import pps.gestorClub_api.services.PaymentService;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -256,6 +258,14 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setPaymentDate(Date.from(Instant.now()));
 
         paymentRepository.save(modelMapper.map(payment, PaymentEntity.class));
+
+        Member member = payment.getMember();
+        String fullName = member.getName() + " " + member.getLastName();
+        emailService.sendReceiptEmail(
+                member.getEmail(),
+                fullName,
+                List.of(payment)
+        );
     }
 
     @Override
@@ -274,6 +284,43 @@ public class PaymentServiceImpl implements PaymentService {
 
         paymentRepository.save(modelMapper.map(payment, PaymentEntity.class));
     }
+
+    @Override
+    public void markAsPaidMercadoPago(List<Long> paymentIds, Long mercadoPagoPaymentId) {
+        List<Payment> payments = new ArrayList<>();
+
+        for (Long paymentId : paymentIds) {
+            Payment payment = getById(paymentId);
+
+            if (payment.getStatus() == PaymentStatus.APPROVED) {
+                continue;
+            }
+
+            payment.setStatus(PaymentStatus.APPROVED);
+            payment.setMethod(PaymentMethod.MERCADO_PAGO);
+            payment.setMercadoPagoId(String.valueOf(mercadoPagoPaymentId));
+            payment.setPaymentDate(Date.from(Instant.now()));
+
+            payments.add(payment);
+        }
+
+        paymentRepository.saveAll(
+                payments.stream()
+                        .map(p -> modelMapper.map(p, PaymentEntity.class))
+                        .toList()
+        );
+
+        if (!payments.isEmpty()) {
+            Member member = payments.get(0).getMember();
+            String fullName = member.getName() + " " + member.getLastName();
+            emailService.sendReceiptEmail(
+                    member.getEmail(),
+                    fullName,
+                    payments
+            );
+        }
+    }
+
 
     // metodo para generar una orden de pago para un miembro a partir de una cuota
     private PaymentEntity generatePayment(MemberEntity member, FeeEntity fee) {

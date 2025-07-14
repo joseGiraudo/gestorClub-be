@@ -32,5 +32,8 @@ public interface PaymentService {
     void sendPendingPaymentsEmail();
 
     void markAsPaid(PaymentPayDTO payDTO);
+
     void markAsPaidMercadoPago(Long paymentId, Long mercadoPagoPaymentId);
+
+    void markAsPaidMercadoPago(List<Long> paymentIds, Long mercadoPagoPaymentId);
 }

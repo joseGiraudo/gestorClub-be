@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Service
@@ -25,6 +26,8 @@ public class EmailServiceImpl implements EmailService {
 
     @Autowired
     private JavaMailSender mailSender;
+
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 
 
     @Override
@@ -143,7 +146,7 @@ public class EmailServiceImpl implements EmailService {
         for(Payment payment : payments) {
             builder.append("<tr>")
                     .append("<td>").append(payment.getId()).append("</td>")
-                    .append("<td>").append(payment.getIssuedDate()).append("</td>")
+                    .append("<td>").append(DATE_FORMAT.format(payment.getIssuedDate())).append("</td>")
                     .append("<td>").append(payment.getFee().getMonth()).append("</td>")
                     .append("<td>").append(payment.getFee().getYear()).append("</td>")
                     .append("<td>").append(payment.getFee().getAmount()).append("</td>")
@@ -151,6 +154,48 @@ public class EmailServiceImpl implements EmailService {
         }
         return builder.toString();
     }
+
+    @Override
+    @SneakyThrows
+    public void sendReceiptEmail(String sendTo, String memberName, List<Payment> payments) {
+        // Leer el HTML del recibo
+        String rawHtml = loadHtmlFile("templates/receipt.html");
+
+        BigDecimal total = payments.stream()
+                .map(p -> p.getFee().getAmount())
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        // reemplazar variables
+        String html = rawHtml.replace("{{memberName}}", memberName)
+                .replace("{{tableBody}}", generateReceiptRows(payments))
+                .replace("{{total}}", "$" + total);
+
+        String cleanHtml = cleanHtmlTidy(html);
+
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+        helper.setTo(sendTo);
+        helper.setSubject("Recibo de Pago - Club Independencia");
+        helper.setText(cleanHtml, true);
+
+        mailSender.send(message);
+    }
+
+    private String generateReceiptRows(List<Payment> payments) {
+        StringBuilder builder = new StringBuilder();
+        for(Payment payment : payments) {
+            builder.append("<tr>")
+                    .append("<td>").append(payment.getId()).append("</td>")
+                    .append("<td>").append(DATE_FORMAT.format(payment.getPaymentDate())).append("</td>")
+                    .append("<td>").append(payment.getFee().getMonth()).append("</td>")
+                    .append("<td>").append(payment.getFee().getYear()).append("</td>")
+                    .append("<td>").append(payment.getFee().getAmount()).append("</td>")
+                    .append("</tr>");
+        }
+        return builder.toString();
+    }
+
 
 
     @SneakyThrows

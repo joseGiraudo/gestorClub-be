@@ -106,53 +106,67 @@ public class MercadoPagoServiceImpl implements MercadoPagoService {
         return preferenceClient.create(preferenceRequest);
     }
 
-            @Override
-            public String receiveNotification(String resource, String topic) throws MPException, MPApiException {
+    @Override
+    public String receiveNotification(String resource, String topic) throws MPException, MPApiException {
 
-                if ("merchant_order".equalsIgnoreCase(topic) && resource != null) {
-                    System.out.println("✅ Notificación recibida: topic = " + topic + ", resource = " + resource);
+        if ("merchant_order".equalsIgnoreCase(topic) && resource != null) {
+            System.out.println("Notificación recibida: topic = " + topic + ", resource = " + resource);
 
-                    // Extraer el ID de la orden desde la URL del recurso
-                    String[] resourceParts = resource.split("/");
-                    Long merchantOrderId = Long.valueOf(resourceParts[resourceParts.length - 1]);
+            // Extraer el ID de la orden desde la URL del recurso
+            String[] resourceParts = resource.split("/");
+            Long merchantOrderId = Long.valueOf(resourceParts[resourceParts.length - 1]);
 
-                    MerchantOrder merchantOrder = this.merchantOrderClient.get(merchantOrderId);
+            MerchantOrder merchantOrder = this.merchantOrderClient.get(merchantOrderId);
 
-                    System.out.println("🧾 Orden de pago encontrada: " + merchantOrder.getId());
+            System.out.println("Orden de pago encontrada: " + merchantOrder.getId());
 
-                    if ("paid".equalsIgnoreCase(merchantOrder.getOrderStatus())) {
+            if ("paid".equalsIgnoreCase(merchantOrder.getOrderStatus())) {
 
-                        // Recorremos los pagos asociados
-                        List<MerchantOrderPayment> payments = merchantOrder.getPayments();
-                        Set<Long> processedPaymentIds = new HashSet<>();
+                // Recorremos los pagos asociados
+                List<MerchantOrderPayment> payments = merchantOrder.getPayments();
+                Set<Long> processedPaymentIds = new HashSet<>();
 
-                        for (MerchantOrderPayment mop : payments) {
-                            // Validamos estado del pago
-                            if (!"approved".equalsIgnoreCase(mop.getStatus())) continue;
+                for (MerchantOrderPayment mop : payments) {
+                    // Validamos estado del pago
+                    if (!"approved".equalsIgnoreCase(mop.getStatus())) continue;
 
-                            // Obtener el Payment completo
-                            com.mercadopago.resources.payment.Payment mpPayment = paymentClient.get(mop.getId());
+                    // Obtener el Payment completo
+                    com.mercadopago.resources.payment.Payment mpPayment = paymentClient.get(mop.getId());
 
-                            Map<String, Object> metadata = mpPayment.getMetadata();
+                    Map<String, Object> metadata = mpPayment.getMetadata();
 
-                            System.out.println("📦 Metadata del pago: " + metadata);
+                    System.out.println("Metadata del pago: " + metadata);
 
-                            if (metadata != null && metadata.containsKey("payment_ids")) {
-                                List<?> rawIds = (List<?>) metadata.get("payment_ids");
+//                    if (metadata != null && metadata.containsKey("payment_ids")) {
+//                        List<?> rawIds = (List<?>) metadata.get("payment_ids");
+//
+//                        for (Object rawId : rawIds) {
+//                            Long paymentId = ((Number) rawId).longValue(); // Maneja Double, Integer, etc.
+//
+//                            if (processedPaymentIds.add(paymentId)) {
+//                                paymentService.markAsPaidMercadoPago(paymentId, mpPayment.getId());
+//                                System.out.println("Cuota marcada como pagada: " + paymentId);
+//                            }
+//                        }
+//                    }
+                    if (metadata != null && metadata.containsKey("payment_ids")) {
+                        List<?> rawIds = (List<?>) metadata.get("payment_ids");
 
-                                for (Object rawId : rawIds) {
-                                    Long paymentId = ((Number) rawId).longValue(); // ⚠️ Maneja Double, Integer, etc.
+                        List<Long> paymentIds = rawIds.stream()
+                                .map(id -> ((Number) id).longValue())
+                                .filter(processedPaymentIds::add)
+                                .toList();
 
-                                    if (processedPaymentIds.add(paymentId)) {
-                                        paymentService.markAsPaidMercadoPago(paymentId, mpPayment.getId());
-                                        System.out.println("✅ Cuota marcada como pagada: " + paymentId);
-                                    }
-                                }
-                            }
+                        if (!paymentIds.isEmpty()) {
+                            paymentService.markAsPaidMercadoPago(paymentIds, mpPayment.getId());
+                            System.out.println("Pagos procesados correctamente: " + paymentIds);
                         }
                     }
-                }
 
-                return "Notificación recibida";
+                }
             }
+        }
+
+        return "Notificación recibida";
+    }
 }
