@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface NewsRepository extends JpaRepository<NewsEntity, Long> {
 
-    List<NewsEntity> findAllByIsActiveTrueOrderByDateDesc();
+    List<NewsEntity> findAllByIsActiveTrueOrderByNewsDateDesc();
 
-    List<NewsEntity> findTop3ByIsActiveTrueOrderByDateDesc();
+    List<NewsEntity> findTop3ByIsActiveTrueOrderByNewsDateDesc();
 }

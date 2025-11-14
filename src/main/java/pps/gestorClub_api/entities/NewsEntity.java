@@ -14,8 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Data
 @Table(name = "news")
-@EqualsAndHashCode(callSuper = true)
-public class NewsEntity extends BaseEntity{
+public class NewsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,15 +26,15 @@ public class NewsEntity extends BaseEntity{
     @Column(name = "summary", nullable = false)
     private String summary;
 
-    @Lob
     @Column(name = "content", columnDefinition = "TEXT", nullable = false)
     private String content;
 
     @Column(name = "image_url")
     private String imageUrl;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "news_date", nullable = false)
-    private Date date;
+    private Date newsDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")

@@ -31,10 +31,10 @@ INSERT INTO members (name, last_name, dni, email, birthdate, phone, address, typ
 
 
 INSERT INTO fees (month_period, year_period, amount) VALUES
-(1, 2025, 5000),
-(2, 2025, 5000),
-(3, 2025, 5000),
-(4, 2025, 5000);
+(1, 2025, 50),
+(2, 2025, 50),
+(3, 2025, 50),
+(4, 2025, 50);
 
 INSERT INTO payments (member_id, fee_id, issued_date, payment_date, status, method, mercado_pago_id, recorded_by) VALUES
 -- cuota 1

@@ -15,8 +15,6 @@ import pps.gestorClub_api.services.CloudinaryService;
 import pps.gestorClub_api.services.NewsService;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,7 +49,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public List<News> getAllActive() {
 
-        return newsRepository.findAllByIsActiveTrueOrderByDateDesc().stream()
+        return newsRepository.findAllByIsActiveTrueOrderByNewsDateDesc().stream()
                 .map(news -> modelMapper.map(news, News.class))
                 .collect(Collectors.toList());
     }
@@ -66,7 +64,7 @@ public class NewsServiceImpl implements NewsService {
         entity.setSummary(summary);
         entity.setContent(content);
         LocalDate localFromDate = LocalDate.parse(date);
-        entity.setDate(java.sql.Date.valueOf(localFromDate));
+        entity.setNewsDate(java.sql.Date.valueOf(localFromDate));
         entity.setImageUrl(imageUrl);
         entity.setStatus(NewsStatus.PUBLISHED);
         entity.setActive(true);
@@ -85,7 +83,7 @@ public class NewsServiceImpl implements NewsService {
         entity.setTitle(title);
         entity.setSummary(summary);
         entity.setContent(content);
-        entity.setDate(java.sql.Date.valueOf(LocalDate.parse(date)));
+        entity.setNewsDate(java.sql.Date.valueOf(LocalDate.parse(date)));
 
         // Solo actualiza imagen si se envió una nueva
         if (image != null && !image.isEmpty()) {
@@ -111,7 +109,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public List<News> getLast3News() {
-        return newsRepository.findTop3ByIsActiveTrueOrderByDateDesc().stream()
+        return newsRepository.findTop3ByIsActiveTrueOrderByNewsDateDesc().stream()
                 .map(news -> modelMapper.map(news, News.class))
                 .collect(Collectors.toList());
     }
