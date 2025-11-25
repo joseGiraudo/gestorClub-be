@@ -8,6 +8,7 @@ import pps.gestorClub_api.dtos.reports.members.MonthlyCountDto;
 import pps.gestorClub_api.dtos.reports.members.SportCountDto;
 import pps.gestorClub_api.entities.MemberEntity;
 import pps.gestorClub_api.entities.TeamEntity;
+import pps.gestorClub_api.enums.MemberStatus;
 import pps.gestorClub_api.enums.TeamSport;
 import pps.gestorClub_api.repositories.MemberRepository;
 import pps.gestorClub_api.repositories.TeamRepository;
@@ -31,17 +32,17 @@ public class MemberReportServiceImpl implements MemberReportService {
 
     @Override
     public MemberReportDto getReport() {
-        List<MemberEntity> allMembers = memberRepository.findAll();
+        List<MemberEntity> activeMembers = memberRepository.findByStatus(MemberStatus.ACTIVE);
 
-        Integer total = allMembers.size();
+        Integer total = activeMembers.size();
 
-        Map<String, Long> byAgeGroup = allMembers.stream()
+        Map<String, Long> byAgeGroup = activeMembers.stream()
                 .map(this::calculateAge)
                 .collect(Collectors.groupingBy(this::getAgeRange, Collectors.counting()));
 
         LocalDateTime oneMonthAgo = LocalDateTime.now().minusMonths(1);
 
-        long newThisMonth = allMembers.stream()
+        long newThisMonth = activeMembers.stream()
                 .filter(m -> {
                     LocalDateTime created = m.getCreatedDate();
                     return created != null && created.isAfter(oneMonthAgo);
