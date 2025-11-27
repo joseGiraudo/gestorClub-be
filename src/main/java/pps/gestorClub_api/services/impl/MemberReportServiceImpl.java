@@ -44,7 +44,7 @@ public class MemberReportServiceImpl implements MemberReportService {
 
         long newThisMonth = activeMembers.stream()
                 .filter(m -> {
-                    LocalDateTime created = m.getCreatedDate();
+                    LocalDateTime created = m.getApprovedAt();
                     return created != null && created.isAfter(oneMonthAgo);
                 })
                 .count();
@@ -57,9 +57,9 @@ public class MemberReportServiceImpl implements MemberReportService {
         List<MemberEntity> allMembers = memberRepository.findAll();
 
         return allMembers.stream()
-                .filter(m -> m.getCreatedDate() != null)
+                .filter(m -> m.getApprovedAt() != null)
                 .collect(Collectors.groupingBy(
-                        m -> m.getCreatedDate().getYear() + "-" + String.format("%02d", m.getCreatedDate().getMonthValue()),
+                        m -> m.getApprovedAt().getYear() + "-" + String.format("%02d", m.getApprovedAt().getMonthValue()),
                         Collectors.counting()
                 ))
                 .entrySet().stream()

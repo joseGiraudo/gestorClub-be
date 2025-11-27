@@ -19,6 +19,7 @@ import pps.gestorClub_api.repositories.MemberRepository;
 import pps.gestorClub_api.services.EmailService;
 import pps.gestorClub_api.services.MemberService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -143,6 +144,7 @@ public class MemberServiceImpl implements MemberService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El socio ya está activo.");
         }
         memberEntity.setStatus(MemberStatus.ACTIVE);
+        memberEntity.setApprovedAt(LocalDateTime.now());
         memberRepository.save(memberEntity);
 
         String fullName = memberEntity.getName() + " " + memberEntity.getLastName();
