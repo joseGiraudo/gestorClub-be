@@ -1,82 +1,82 @@
 INSERT INTO members (name, last_name, dni, email, birthdate, phone, address, type, status, approved_at, created_date) VALUES
--- ABRIL
-('Ana', 'Ramírez', '34567890', 'ejemplo@correo.com', '1992-04-15', '3511234567', 'Av. Siempre Viva 742', 'ACTIVE', 'ACTIVE', '2025-04-05T10:00:00', '2025-04-05T10:00:00'),
-('Luis', 'Fernández', '29876543', '1999francogarcia@correo.com', '1980-09-23', '3417654321', 'Calle Falsa 123', 'ACTIVE', 'ACTIVE', '2025-04-06T10:00:00', '2025-04-06T10:00:00'),
-('Clara', 'Martínez', '40789012', 'clara.martinez@correo.com', '2001-12-02', null, null, 'ACTIVE', 'INACTIVE', null, '2025-04-07T10:00:00'),
-('Sofía', 'Pérez', '33445566', 'sofia.perez@correo.com', '1995-07-08', '3812233445', 'San Martín 456', 'ACTIVE', 'PENDING', null, '2025-04-08T10:00:00'),
-('Diego', 'López', '37890123', 'diego.lopez@correo.com', '1988-03-30', '3879876543', 'Belgrano 789', 'ACTIVE', 'PENDING', null, '2025-04-09T10:00:00'),
--- MAYO
-('Valeria', 'Gómez', '31234567', 'valeria.gomez@correo.com', '1990-05-10', '3519988776', 'Los Álamos 123', 'ACTIVE', 'ACTIVE', '2025-05-01T10:00:00', '2025-05-01T10:00:00'),
-('Mariano', 'Sosa', '29876123', 'mariano.sosa@correo.com', '1985-11-25', '3498765432', 'Mitre 800', 'ACTIVE', 'INACTIVE', null, '2025-05-02T10:00:00'),
-('Camila', 'Torres', '41789012', 'camila.torres@correo.com', '2002-01-19', '3512233445', 'La Rioja 456', 'ACTIVE', 'ACTIVE', '2025-05-03T10:00:00', '2025-05-03T10:00:00'),
-('Carlos', 'Méndez', '28765432', 'carlos.mendez@correo.com', '1979-06-30', '3819988776', 'Av. Colón 999', 'ACTIVE', 'ACTIVE', '2025-05-04T10:00:00', '2025-05-04T10:00:00'),
-('Lucía', 'Ruiz', '39871234', 'lucia.ruiz@correo.com', '1996-03-14', '3414455667', 'Tucumán 234', 'ACTIVE', 'PENDING', null, '2025-05-05T10:00:00'),
-('Juan', 'Díaz', '33440011', 'juan.diaz@correo.com', '1993-08-17', '3431122334', 'España 1010', 'ACTIVE', 'ACTIVE', '2025-05-06T10:00:00', '2025-05-06T10:00:00'),
-('Bruno', 'Castro', '31887766', 'bruno.castro@correo.com', '1987-12-05', '3513344556', 'Buenos Aires 55', 'ACTIVE', 'INACTIVE', null, '2025-05-07T10:00:00'),
-('Julieta', 'Moreno', '40998877', 'julieta.moreno@correo.com', '2000-10-28', '3873344221', 'Santa Fe 89', 'ACTIVE', 'PENDING', null, '2025-05-08T10:00:00'),
-('Emilia', 'Silva', '37771234', 'emilia.silva@correo.com', '1999-07-07', '3819981234', 'Entre Ríos 321', 'ACTIVE', 'ACTIVE', '2025-05-09T10:00:00', '2025-05-09T10:00:00'),
-('Tomás', 'Paz', '30445566', 'tomas.paz@correo.com', '1991-01-02', '3541554433', 'Lavalle 567', 'ACTIVE', 'ACTIVE', '2025-05-10T10:00:00', '2025-05-10T10:00:00'),
--- JUNIO
-('Natalia', 'Herrera', '32889900', 'natalia.herrera@correo.com', '1986-04-09', '3421112233', 'Av. Alem 222', 'ACTIVE', 'INACTIVE', null, '2025-06-01T10:00:00'),
-('Facundo', 'Ibarra', '31223344', 'facundo.ibarra@correo.com', '1994-09-15', '3517778899', 'Urquiza 787', 'ACTIVE', 'PENDING', null, '2025-06-02T10:00:00'),
-('Martina', 'Luna', '41882233', 'martina.luna@correo.com', '2003-03-22', null, null, 'ACTIVE', 'ACTIVE', '2025-06-03T10:00:00', '2025-06-03T10:00:00'),
-('Pedro', 'Ojeda', '36667788', 'pedro.ojeda@correo.com', '1983-05-12', '3439998888', 'Corrientes 144', 'ACTIVE', 'ACTIVE', '2025-06-04T10:00:00', '2025-06-04T10:00:00'),
-('Micaela', 'Acosta', '33775599', 'micaela.acosta@correo.com', '1997-06-18', '3543123456', 'Av. Rivadavia 300', 'ACTIVE', 'PENDING', null, '2025-06-05T10:00:00'),
-('Ramiro', 'Villalba', '29998877', 'ramiro.villalba@correo.com', '1989-11-01', '3812345678', 'Dorrego 666', 'ACTIVE', 'ACTIVE', '2025-06-06T10:00:00', '2025-06-06T10:00:00'),
-('Antonella', 'Navarro', '37665544', 'antonella.navarro@correo.com', '1998-02-10', '3423344556', 'Alberdi 909', 'ACTIVE', 'INACTIVE', null, '2025-06-07T10:00:00'),
-('Joaquín', 'Peralta', '31001122', 'joaquin.peralta@correo.com', '1992-08-03', '3435556677', 'Vélez Sarsfield 321', 'ACTIVE', 'PENDING', null, '2025-06-08T10:00:00'),
-('Florencia', 'Correa', '42778899', 'florencia.correa@correo.com', '2004-12-14', null, null, 'ACTIVE', 'ACTIVE', '2025-06-09T10:00:00', '2025-06-09T10:00:00'),
-('Andrés', 'Rojas', '28880011', 'andres.rojas@correo.com', '1984-10-27', '3541998877', 'Maipú 1100', 'ACTIVE', 'ACTIVE', '2025-06-10T10:00:00', '2025-06-10T10:00:00');
+-- SEPTIEMBRE
+('Ana', 'Ramírez', '34567890', 'ejemplo@correo.com', '1992-04-15', '3511234567', 'Av. Siempre Viva 742', 'ACTIVE', 'ACTIVE', '2025-09-05T10:00:00', '2025-09-05T10:00:00'),
+('Luis', 'Fernández', '29876543', '1999francogarcia@correo.com', '1980-09-23', '3417654321', 'Calle Falsa 123', 'ACTIVE', 'ACTIVE', '2025-09-06T10:00:00', '2025-09-06T10:00:00'),
+('Clara', 'Martínez', '40789012', 'clara.martinez@correo.com', '2001-12-02', '349668955', 'Calle 123', 'ACTIVE', 'INACTIVE', null, '2025-09-07T10:00:00'),
+('Sofía', 'Pérez', '33445566', 'sofia.perez@correo.com', '1995-07-08', '3812233445', 'San Martín 456', 'ACTIVE', 'PENDING', null, '2025-09-08T10:00:00'),
+('Diego', 'López', '37890123', 'diego.lopez@correo.com', '1988-03-30', '3879876543', 'Belgrano 789', 'ACTIVE', 'PENDING', null, '2025-09-09T10:00:00'),
+-- OCTUBRE
+('Valeria', 'Gómez', '31234567', 'valeria.gomez@correo.com', '1990-05-10', '3519988776', 'Los Álamos 123', 'ACTIVE', 'ACTIVE', '2025-10-01T10:00:00', '2025-10-01T10:00:00'),
+('Mariano', 'Sosa', '29876123', 'mariano.sosa@correo.com', '1985-11-25', '3498765432', 'Mitre 800', 'ACTIVE', 'INACTIVE', null, '2025-10-02T10:00:00'),
+('Camila', 'Torres', '41789012', 'camila.torres@correo.com', '2002-01-19', '3512233445', 'La Rioja 456', 'ACTIVE', 'ACTIVE', '2025-10-03T10:00:00', '2025-10-03T10:00:00'),
+('Carlos', 'Méndez', '28765432', 'carlos.mendez@correo.com', '1979-06-30', '3819988776', 'Av. Colón 999', 'ACTIVE', 'ACTIVE', '2025-10-04T10:00:00', '2025-10-04T10:00:00'),
+('Lucía', 'Ruiz', '39871234', 'lucia.ruiz@correo.com', '1996-03-14', '3414455667', 'Tucumán 234', 'ACTIVE', 'PENDING', null, '2025-10-05T10:00:00'),
+('Juan', 'Díaz', '33440011', 'juan.diaz@correo.com', '1993-08-17', '3431122334', 'España 1010', 'ACTIVE', 'ACTIVE', '2025-10-06T10:00:00', '2025-10-06T10:00:00'),
+('Bruno', 'Castro', '31887766', 'bruno.castro@correo.com', '1987-12-05', '3513344556', 'Buenos Aires 55', 'ACTIVE', 'INACTIVE', null, '2025-10-07T10:00:00'),
+('Julieta', 'Moreno', '40998877', 'julieta.moreno@correo.com', '2000-10-28', '3873344221', 'Santa Fe 89', 'ACTIVE', 'PENDING', null, '2025-10-08T10:00:00'),
+('Emilia', 'Silva', '37771234', 'emilia.silva@correo.com', '1999-07-07', '3819981234', 'Entre Ríos 321', 'ACTIVE', 'ACTIVE', '2025-10-09T10:00:00', '2025-10-09T10:00:00'),
+('Tomás', 'Paz', '30445566', 'tomas.paz@correo.com', '1991-01-02', '3541554433', 'Lavalle 567', 'ACTIVE', 'ACTIVE', '2025-10-10T10:00:00', '2025-10-10T10:00:00'),
+-- NOVIEMBRE
+('Natalia', 'Herrera', '32889900', 'natalia.herrera@correo.com', '1986-04-09', '3421112233', 'Av. Alem 222', 'ACTIVE', 'INACTIVE', null, '2025-11-01T10:00:00'),
+('Facundo', 'Ibarra', '31223344', 'facundo.ibarra@correo.com', '1994-09-15', '3517778899', 'Urquiza 787', 'ACTIVE', 'PENDING', null, '2025-11-02T10:00:00'),
+('Martina', 'Luna', '41882233', 'martina.luna@correo.com', '2003-03-22', '4567898885', 'Urquiza 145', 'ACTIVE', 'ACTIVE', '2025-06-03T10:00:00', '2025-11-03T10:00:00'),
+('Pedro', 'Ojeda', '36667788', 'pedro.ojeda@correo.com', '1983-05-12', '3439998888', 'Corrientes 144', 'ACTIVE', 'ACTIVE', '2025-11-04T10:00:00', '2025-11-04T10:00:00'),
+('Micaela', 'Acosta', '33775599', 'micaela.acosta@correo.com', '1997-06-18', '3543123456', 'Av. Rivadavia 300', 'ACTIVE', 'PENDING', null, '2025-11-05T10:00:00'),
+('Ramiro', 'Villalba', '29998877', 'ramiro.villalba@correo.com', '1989-11-01', '3812345678', 'Dorrego 666', 'ACTIVE', 'ACTIVE', '2025-11-06T10:00:00', '2025-11-06T10:00:00'),
+('Antonella', 'Navarro', '37665544', 'antonella.navarro@correo.com', '1998-02-10', '3423344556', 'Alberdi 909', 'ACTIVE', 'INACTIVE', null, '2025-11-07T10:00:00'),
+('Joaquín', 'Peralta', '31001122', 'joaquin.peralta@correo.com', '1992-08-03', '3435556677', 'Vélez Sarsfield 321', 'ACTIVE', 'PENDING', null, '2025-11-08T10:00:00'),
+('Florencia', 'Correa', '42778899', 'florencia.correa@correo.com', '2004-12-14', '123456789', 'Garay 52', 'ACTIVE', 'ACTIVE', '2025-06-09T10:00:00', '2025-11-09T10:00:00'),
+('Andrés', 'Rojas', '28880011', 'andres.rojas@correo.com', '1984-10-27', '3541998877', 'Maipú 1100', 'ACTIVE', 'ACTIVE', '2025-06-10T10:00:00', '2025-11-10T10:00:00');
 
 
 
 INSERT INTO fees (month_period, year_period, amount) VALUES
-(1, 2025, 50),
-(2, 2025, 50),
-(3, 2025, 50),
-(4, 2025, 50);
+(8, 2025, 5000),
+(9, 2025, 5000),
+(10, 2025, 5000),
+(11, 2025, 5000);
 
 INSERT INTO payments (member_id, fee_id, issued_date, payment_date, status, method, mercado_pago_id, recorded_by) VALUES
--- cuota 1
-(1, 1, '2025-01-05', '2025-05-01', 'APPROVED', 'TRANSFER', NULL, NULL),
-(2, 1, '2025-01-05', '2025-01-10', 'APPROVED', 'CASH', NULL, NULL),
-(3, 1, '2025-01-05', NULL, 'PENDING', NULL, NULL, NULL),
-(4, 1, '2025-01-05', '2025-05-04', 'APPROVED', 'TRANSFER', NULL, NULL),
-(5, 1, '2025-01-05', NULL, 'PENDING', NULL, NULL, NULL),
-(6, 1, '2025-01-05', NULL, 'PENDING', NULL, NULL, NULL),
-(7, 1, '2025-01-05', NULL, 'PENDING', NULL, NULL, NULL),
-(8, 1, '2025-01-05', '2025-06-04', 'APPROVED', 'TRANSFER', NULL, NULL),
-(9, 1, '2025-01-05', '2025-06-04', 'APPROVED', 'TRANSFER', NULL, NULL),
--- cuota 2
-(1, 2, '2025-02-01', '2025-02-10', 'APPROVED', 'CASH', NULL, NULL),
-(2, 2, '2025-02-01', '2025-02-11', 'APPROVED', 'TRANSFER', NULL, NULL),
-(3, 2, '2025-02-01', NULL, 'PENDING', NULL, NULL, NULL),
-(4, 2, '2025-02-01', NULL, 'PENDING', NULL, NULL, NULL),
-(5, 2, '2025-02-01', '2025-02-15', 'APPROVED', 'MERCADO_PAGO', 'mp_001', NULL),
-(6, 2, '2025-02-01', '2025-02-11', 'APPROVED', 'TRANSFER', NULL, NULL),
-(7, 2, '2025-02-01', NULL, 'PENDING', NULL, NULL, NULL),
-(8, 2, '2025-02-01', NULL, 'PENDING', NULL, NULL, NULL),
-(9, 2, '2025-02-01', '2025-02-15', 'APPROVED', 'MERCADO_PAGO', 'mp_002', NULL),
--- cuota 3
-(1, 3, '2025-03-01', '2025-03-05', 'APPROVED', 'CASH', NULL, NULL),
-(2, 3, '2025-03-01', NULL, 'PENDING', NULL, NULL, NULL),
-(3, 3, '2025-03-01', '2025-03-12', 'APPROVED', 'TRANSFER', NULL, NULL),
-(4, 3, '2025-03-01', '2025-03-18', 'APPROVED', 'MERCADO_PAGO', 'mp_003', NULL),
-(5, 3, '2025-03-01', NULL, 'CANCELLED', NULL, NULL, NULL),
-(6, 3, '2025-03-01', '2025-03-05', 'APPROVED', 'CASH', NULL, NULL),
-(7, 3, '2025-03-01', NULL, 'PENDING', NULL, NULL, NULL),
-(8, 3, '2025-03-01', '2025-03-12', 'APPROVED', 'TRANSFER', NULL, NULL),
-(9, 3, '2025-03-01', '2025-03-18', 'APPROVED', 'MERCADO_PAGO', 'mp_004', NULL),
--- cuota 4
-(1, 4, '2025-04-01', '2025-04-10', 'APPROVED', 'TRANSFER', NULL, NULL),
-(2, 4, '2025-04-01', NULL, 'PENDING', NULL, NULL, NULL),
-(3, 4, '2025-04-01', '2025-04-15', 'APPROVED', 'CASH', NULL, NULL),
-(4, 4, '2025-04-01', '2025-04-20', 'APPROVED', 'MERCADO_PAGO', 'mp_005', NULL),
-(5, 4, '2025-04-01', NULL, 'PENDING', NULL, NULL, NULL),
-(6, 4, '2025-04-01', '2025-04-10', 'APPROVED', 'TRANSFER', NULL, NULL),
-(7, 4, '2025-04-01', NULL, 'PENDING', NULL, NULL, NULL),
-(8, 4, '2025-04-01', '2025-04-15', 'APPROVED', 'CASH', NULL, NULL),
-(9, 4, '2025-04-01', '2025-04-20', 'APPROVED', 'MERCADO_PAGO', 'mp_006', NULL);
+-- cuota 1 (agosto)
+(1, 1, '2025-08-05', '2025-08-06', 'APPROVED', 'TRANSFER', NULL, NULL),
+(2, 1, '2025-08-05', '2025-08-10', 'APPROVED', 'CASH', NULL, NULL),
+(3, 1, '2025-08-05', NULL, 'PENDING', NULL, NULL, NULL),
+(4, 1, '2025-08-05', '2025-08-07', 'APPROVED', 'TRANSFER', NULL, NULL),
+(5, 1, '2025-08-05', NULL, 'PENDING', NULL, NULL, NULL),
+(6, 1, '2025-08-05', NULL, 'PENDING', NULL, NULL, NULL),
+(7, 1, '2025-08-05', NULL, 'PENDING', NULL, NULL, NULL),
+(8, 1, '2025-08-05', '2025-08-07', 'APPROVED', 'TRANSFER', NULL, NULL),
+(9, 1, '2025-08-05', '2025-08-11', 'APPROVED', 'TRANSFER', NULL, NULL),
+-- cuota 2 (sept)
+(1, 2, '2025-09-05', '2025-09-10', 'APPROVED', 'CASH', NULL, NULL),
+(2, 2, '2025-09-05', '2025-09-11', 'APPROVED', 'TRANSFER', NULL, NULL),
+(3, 2, '2025-09-05', NULL, 'PENDING', NULL, NULL, NULL),
+(4, 2, '2025-09-05', NULL, 'PENDING', NULL, NULL, NULL),
+(5, 2, '2025-09-05', '2025-09-15', 'APPROVED', 'MERCADO_PAGO', 'mp_001', NULL),
+(6, 2, '2025-09-05', '2025-09-11', 'APPROVED', 'TRANSFER', NULL, NULL),
+(7, 2, '2025-09-05', NULL, 'PENDING', NULL, NULL, NULL),
+(8, 2, '2025-09-05', NULL, 'PENDING', NULL, NULL, NULL),
+(9, 2, '2025-09-05', '2025-09-15', 'APPROVED', 'MERCADO_PAGO', 'mp_002', NULL),
+-- cuota 3 (oct)
+(1, 3, '2025-10-05', '2025-10-05', 'APPROVED', 'CASH', NULL, NULL),
+(2, 3, '2025-10-05', NULL, 'PENDING', NULL, NULL, NULL),
+(3, 3, '2025-10-05', '2025-10-12', 'APPROVED', 'TRANSFER', NULL, NULL),
+(4, 3, '2025-10-05', '2025-10-18', 'APPROVED', 'MERCADO_PAGO', 'mp_003', NULL),
+(5, 3, '2025-10-05', NULL, 'PENDING', NULL, NULL, NULL),
+(6, 3, '2025-10-05', '2025-10-05', 'APPROVED', 'CASH', NULL, NULL),
+(7, 3, '2025-10-05', NULL, 'PENDING', NULL, NULL, NULL),
+(8, 3, '2025-10-05', '2025-10-12', 'APPROVED', 'TRANSFER', NULL, NULL),
+(9, 3, '2025-10-05', '2025-10-18', 'APPROVED', 'MERCADO_PAGO', 'mp_004', NULL),
+-- cuota 4 (nov)
+(1, 4, '2025-11-05', '2025-11-10', 'APPROVED', 'TRANSFER', NULL, NULL),
+(2, 4, '2025-11-05', NULL, 'PENDING', NULL, NULL, NULL),
+(3, 4, '2025-11-05', '2025-11-15', 'APPROVED', 'CASH', NULL, NULL),
+(4, 4, '2025-11-05', '2025-11-20', 'APPROVED', 'MERCADO_PAGO', 'mp_005', NULL),
+(5, 4, '2025-11-05', NULL, 'PENDING', NULL, NULL, NULL),
+(6, 4, '2025-11-05', '2025-11-10', 'APPROVED', 'TRANSFER', NULL, NULL),
+(7, 4, '2025-11-05', NULL, 'PENDING', NULL, NULL, NULL),
+(8, 4, '2025-11-05', '2025-11-15', 'APPROVED', 'CASH', NULL, NULL),
+(9, 4, '2025-11-05', '2025-11-20', 'APPROVED', 'MERCADO_PAGO', 'mp_006', NULL);
 
 
 
@@ -91,67 +91,65 @@ INSERT INTO teams (name, description, sport)
 VALUES ('Basquet Masculino', 'Entrenamientos: Jueves 22:00hs. Partidos: sábado', 'BASKETBALL');
 
 INSERT INTO teams (name, description, sport)
-VALUES ('Hockey Femenino', 'Entrenamientos: martes y viernes 18:30hs', 'HOCKEY');
+VALUES ('Futbol Femenino', 'Entrenamientos: martes y jueves 18:00hs', 'FOOTBALL');
 
 INSERT INTO teams (name, description, sport)
-VALUES ('Futbol femenino', 'Entrenamientos: martes y jueves 18:00hs', 'FOOTBALL');
+VALUES ('Hockey Femenino', 'Entrenamientos: martes y viernes 18:30hs', 'HOCKEY');
 
 INSERT INTO teams (name, description, sport)
 VALUES ('Futbol Masculino', 'Entrenamientos miercoles 21:00hs y partidos sabados', 'FOOTBALL');
 
-INSERT INTO teams (name, description, sport)
-VALUES ('Futbol femenino B', 'Entrenamientos: martes y jueves 20:00hs', 'FOOTBALL');
 
 INSERT INTO team_members(team_id, member_id) VALUES
-(1, 1),
 (1, 2),
-(1, 3),
-(1, 4),
 (1, 5),
-(1, 6),
 (1, 7),
-(1, 8),
 (1, 9),
-(1, 10);
+(1, 11),
+(1, 12),
+(1, 15),
+(1, 17),
+(1, 19),
+(1, 23);
 
 INSERT INTO team_members(team_id, member_id) VALUES
-(2, 11),
-(2, 12),
+(2, 1),
+(2, 3),
+(2, 4),
+(2, 6),
+(2, 8),
+(2, 10),
 (2, 13),
-(2, 14),
-(2, 15),
-(2, 16),
-(2, 17),
-(2, 18);
+(2, 14);
 
 
 
 INSERT INTO news(title, summary, content, image_url, news_date, status, is_active) VALUES
 ('Se juega una nueva fecha del básquet masculino', 'El próximo sábado se disputa la fecha 7 del torneo, donde enfrentan a El Rejunte',
  'El equipo buscará alcanzar una nueva victoria para mantenerse en lo alto de la tabla, luego de un fin de semana de descanso. \n Con algunas bajas por lesiones, son 9 los jugadores que se presentarán a defender los colores del club, y se espera un partido apretado.\n Vamos Inde!',
- 'https://res.cloudinary.com/dkcpxysrt/image/upload/v1750443094/xf6jntwfv3am86v50a5r.png', '2025-06-20', 'PUBLISHED', true);
+ 'https://res.cloudinary.com/dkcpxysrt/image/upload/v1750443094/xf6jntwfv3am86v50a5r.png', '2025-11-28', 'PUBLISHED', true);
 
 INSERT INTO news(title, summary, content, image_url, news_date, status, is_active) VALUES
 ('Victoria ajustada en casa', 'El equipo ganó por pocos puntos en un partido clave',
  'En un encuentro muy parejo, el equipo local se impuso 78 a 75, consolidando su racha de victorias en casa y manteniéndose entre los primeros puestos. \nAsí suma su cuarta victoria en la temporada y se mantiene en los primeros puestos del torneo.',
- 'https://media.istockphoto.com/id/2162305941/photo/portrait-of-professional-womens-basketball-team.jpg?s=1024x1024&w=is&k=20&c=UwYYh9wTPQE3dTaLqJAf98czLLgszFVCAIkr-JCQhVY=', '2025-06-10', 'PUBLISHED', true);
+ 'https://media.istockphoto.com/id/2162305941/photo/portrait-of-professional-womens-basketball-team.jpg?s=1024x1024&w=is&k=20&c=UwYYh9wTPQE3dTaLqJAf98czLLgszFVCAIkr-JCQhVY=', '2025-11-21', 'PUBLISHED', true);
 
 INSERT INTO news(title, summary, content, image_url, news_date, status, is_active) VALUES
-('Récord defensivo en la última fecha', 'El conjunto logró el menor puntaje recibido de la temporada',
- 'Con una defensa sólida, el equipo solo permitió 55 puntos al rival, estableciendo así un nuevo récord defensivo en la campaña.',
- 'https://cdn.pixabay.com/photo/2021/09/27/13/25/football-6660800_1280.jpg', '2025-06-08', 'PUBLISHED', true);
+('Récord defensivo en la última fecha', 'El conjunto de fútbol logró otra vitoria en la temporada',
+ 'Con una defensa sólida, el equipo volvió a mantener el arco en cero, estableciendo así un nuevo récord defensivo en la campaña. \nDe esta manera ya son 6 partidos consecutivos manteniendo el arco en cero.',
+ 'https://cdn.pixabay.com/photo/2021/09/27/13/25/football-6660800_1280.jpg', '2025-11-18', 'PUBLISHED', true);
 
 INSERT INTO news(title, summary, content, image_url, news_date, status, is_active) VALUES
 ('Jugadora destacada del mes', 'La capitana fue elegida MVP del mes en la liga',
  'Gracias a su promedio de 20 puntos y 8 rebotes, la capitana del equipo fue nombrada mejor jugadora del mes por la prensa especializada.',
- 'https://media.istockphoto.com/id/2148828024/photo/woman-taking-a-break-from-playing-at-the-basketball-court-and-texting-on-mobile.jpg?s=1024x1024&w=is&k=20&c=dV2IzYE8MVeTZtOTxMqXQGv4HLBP4tk6mU7vF88vtKk=', '2025-06-05', 'PUBLISHED', true);
+ 'https://media.istockphoto.com/id/2148828024/photo/woman-taking-a-break-from-playing-at-the-basketball-court-and-texting-on-mobile.jpg?s=1024x1024&w=is&k=20&c=dV2IzYE8MVeTZtOTxMqXQGv4HLBP4tk6mU7vF88vtKk=', '2025-11-13', 'PUBLISHED', true);
 
 INSERT INTO news(title, summary, content, image_url, news_date, status, is_active) VALUES
 ('Triunfo contundente en la ruta', 'El equipo visitante obtuvo una victoria sólida fuera de casa',
  'Lejos de su estadio, el equipo ganó 85 a 60, destacando el rendimiento colectivo y la efectividad en los tiros de 3 puntos.',
- 'https://cdn.pixabay.com/photo/2024/02/26/14/13/people-8598065_1280.jpg', '2025-06-02', 'PUBLISHED', true);
+ 'https://cdn.pixabay.com/photo/2024/02/26/14/13/people-8598065_1280.jpg', '2025-11-02', 'PUBLISHED', true);
 
 INSERT INTO news(title, summary, content, image_url, news_date, status, is_active) VALUES
 ('El basquet sigue con la racha de victorias', 'El equipo de basquet logró otra victoria para continuar puntero en la tabla',
  'Durante la jornada del sábado, el equipo de básquet pudo obtener otra victoria por 60 a 42, continuando así como punteros del torneo. Recordemos que el equipo continúa invicto, y vienen encaminados al título.',
- 'https://res.cloudinary.com/dkcpxysrt/image/upload/v1749160177/ayuaae4dnqzeawbnttly.jpg', '2025-05-06', 'PUBLISHED', true);
+ 'https://res.cloudinary.com/dkcpxysrt/image/upload/v1749160177/ayuaae4dnqzeawbnttly.jpg', '2025-10-26', 'PUBLISHED', true);
